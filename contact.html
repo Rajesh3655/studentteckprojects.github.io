@@ -5,8 +5,13 @@
      crossorigin="anonymous"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="theme-color" content="#1d4ed8">
+<meta name="robots" content="index, follow, max-image-preview:large">
+    <meta name="googlebot" content="index, follow">
     <title>Contact Us - StudentTechProjects</title>
     <meta name="description" content="Get in touch with StudentTechProjects. We're here to help with your questions about tech opportunities.">
+    <link rel="preconnect" href="https://cdn.tailwindcss.com">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
     
     <link rel="canonical" href="https://studenttechprojects.com/contact.html">
     
@@ -14,8 +19,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     
     <style>
-        .ad-label { font-size: 12px; color: #666; text-align: center; margin-bottom: 5px; }
-        .breadcrumb-item + .breadcrumb-item:before { content: "›"; padding: 0 8px; color: #6b7280; }
+.breadcrumb-item + .breadcrumb-item:before { content: "›"; padding: 0 8px; color: #6b7280; }
     </style>
 </head>
 <body class="font-sans antialiased text-gray-800">
@@ -63,16 +67,7 @@
     <main class="container mx-auto px-4 py-12">
         <div class="max-w-3xl mx-auto">
             <h1 class="text-4xl font-bold mb-6">Contact Us</h1>
-            
-            <!-- Ad Space 1 -->
-            <div class="mb-8">
-                <div class="ad-label">Advertisement</div>
-                <div class="bg-gray-100 h-24 flex items-center justify-center text-gray-500 border border-gray-200">
-                    Ad Space 1 (728x90)
-                </div>
-            </div>
-            
-            <div class="bg-white rounded-lg shadow-lg p-8 mb-8">
+<div class="bg-white rounded-lg shadow-lg p-8 mb-8">
                 <h2 class="text-2xl font-semibold mb-6">Get in Touch</h2>
                 
                 <div class="grid md:grid-cols-2 gap-6 mb-8">
@@ -124,16 +119,7 @@
                     </button>
                 </form>
             </div>
-            
-            <!-- Ad Space 2 -->
-            <div class="mb-8">
-                <div class="ad-label">Advertisement</div>
-                <div class="bg-gray-100 h-24 flex items-center justify-center text-gray-500 border border-gray-200">
-                    Ad Space 2 (728x90)
-                </div>
-            </div>
-            
-            <div class="bg-gray-50 rounded-lg p-8">
+<div class="bg-gray-50 rounded-lg p-8">
                 <h2 class="text-2xl font-semibold mb-4">Frequently Asked Questions</h2>
                 <div class="space-y-4">
                     <div>
@@ -152,16 +138,7 @@
             </div>
         </div>
     </main>
-
-    <!-- Footer Ad -->
-    <div class="container mx-auto px-4 mb-8">
-        <div class="ad-label">Advertisement</div>
-        <div class="bg-gray-100 h-24 flex items-center justify-center text-gray-500 border border-gray-200">
-            Footer Ad Space (728x90)
-        </div>
-    </div>
-
-    <!-- Footer (same as index.html) -->
+<!-- Footer (same as index.html) -->
     <footer class="bg-gray-900 text-white py-12">
         <!-- Same footer as index.html -->
         <div class="container mx-auto px-4">
@@ -204,7 +181,7 @@
         </div>
     </footer>
 
-    <script src="/scripts/site.js"></script>
+    <script defer src="/scripts/site.js"></script>
     <script>
         document.getElementById('contactForm')?.addEventListener('submit', function(e) {
             e.preventDefault();

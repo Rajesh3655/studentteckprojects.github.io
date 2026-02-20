@@ -1,5 +1,10 @@
 // Mobile Menu Toggle
 document.addEventListener('DOMContentLoaded', function() {
+    const normalizePath = (path) => {
+        if (!path) return '/';
+        return path.endsWith('/') ? path : `${path}/`;
+    };
+
     const menuButton = document.getElementById('mobile-menu-button');
     const mobileMenu = document.getElementById('mobile-menu');
     
@@ -39,8 +44,16 @@ document.addEventListener('DOMContentLoaded', function() {
     // Smooth scroll for anchor links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
+            const hash = this.getAttribute('href');
+            // Ignore placeholder links such as href="#".
+            if (!hash || hash === '#') return;
             e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
+            let target = null;
+            try {
+                target = document.querySelector(hash);
+            } catch (_err) {
+                target = null;
+            }
             if (target) {
                 target.scrollIntoView({ behavior: 'smooth' });
             }
@@ -48,13 +61,16 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
     // Add active class to current navigation item
-    const currentPath = window.location.pathname;
+    const currentPath = normalizePath(window.location.pathname);
     const navLinks = document.querySelectorAll('nav a');
     
     navLinks.forEach(link => {
-        const linkPath = link.getAttribute('href');
-        if (linkPath === currentPath || 
-            (currentPath.startsWith(linkPath) && linkPath !== '/' && linkPath !== '/index.html')) {
+        const href = link.getAttribute('href') || '';
+        if (!href.startsWith('/')) return;
+
+        const linkPath = normalizePath(href.replace('/index.html', '/'));
+        if (linkPath === currentPath ||
+            (linkPath !== '/' && currentPath.startsWith(linkPath))) {
             link.classList.add('text-blue-600', 'font-semibold');
         }
     });

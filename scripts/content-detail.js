@@ -179,13 +179,7 @@
                         <p class="font-semibold text-amber-700">${escapeHtml(data.location || 'Not specified')}</p>
                     </div>
                 </div>
-
-                <div class="max-w-4xl mx-auto mb-8">
-                    <div class="ad-label">Advertisement</div>
-                    <div class="bg-gray-100 h-24 flex items-center justify-center text-gray-500 border border-gray-200">Ad Space 1 (728x90)</div>
-                </div>
-
-                <div class="bg-gray-50 rounded-lg p-6 mb-8">
+<div class="bg-gray-50 rounded-lg p-6 mb-8">
                     <h2 class="text-xl font-bold mb-4">Overview</h2>
                     <div class="grid md:grid-cols-2 gap-4">
                         <div><span class="font-semibold">Company:</span> ${escapeHtml(data.company || 'Not specified')}</div>
@@ -223,13 +217,7 @@
                 <p class="mb-4">${escapeHtml(data.howToApply || 'Use the official link to apply.')}</p>
 
                 ${applyBtn ? `<div class="text-center my-8">${applyBtn}</div>` : ''}
-
-                <div class="max-w-4xl mx-auto mb-8">
-                    <div class="ad-label">Advertisement</div>
-                    <div class="bg-gray-100 h-24 flex items-center justify-center text-gray-500 border border-gray-200">Ad Space 2 (728x90)</div>
-                </div>
-
-                <h2 class="text-2xl font-bold mb-4">Preparation Tips</h2>
+<h2 class="text-2xl font-bold mb-4">Preparation Tips</h2>
                 <ul class="list-disc pl-6 mb-6 space-y-2">${listHtml(tips, 'Prepare your profile and apply early.')}</ul>
 
                 <h2 class="text-2xl font-bold mb-4">Frequently Asked Questions</h2>
@@ -282,7 +270,7 @@
 
     document.addEventListener('DOMContentLoaded', function () {
         render().catch(function (err) {
-            console.error(err);
+            console.warn('Content render fallback:', err && err.message ? err.message : err);
             const root = document.getElementById('content-root');
             if (root) root.innerHTML = '<p class="text-center text-red-600">Failed to load content. Please try again.</p>';
         });

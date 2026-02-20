@@ -5,8 +5,13 @@
      crossorigin="anonymous"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="theme-color" content="#1d4ed8">
+<meta name="robots" content="index, follow, max-image-preview:large">
+    <meta name="googlebot" content="index, follow">
     <title>StudentTechProjects - Tech Opportunities for Students</title>
     <meta name="description" content="Find latest tech jobs, internships, hackathons and projects for students. Your gateway to tech career opportunities.">
+    <link rel="preconnect" href="https://cdn.tailwindcss.com">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
     
     <!-- Canonical URL -->
     <link rel="canonical" href="https://studenttechprojects.com">
@@ -30,13 +35,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     
     <style>
-        .ad-label {
-            font-size: 12px;
-            color: #666;
-            text-align: center;
-            margin-bottom: 5px;
-        }
-        .breadcrumb-item + .breadcrumb-item:before {
+.breadcrumb-item + .breadcrumb-item:before {
             content: "›";
             padding: 0 8px;
             color: #6b7280;
@@ -101,16 +100,7 @@
                 Discover the latest jobs, internships, hackathons, and projects tailored for tech students.
             </p>
         </section>
-
-        <!-- Ad Space 1 - After Intro -->
-        <div class="max-w-4xl mx-auto mb-8">
-            <div class="ad-label">Advertisement</div>
-            <div class="bg-gray-100 h-24 flex items-center justify-center text-gray-500 border border-gray-200">
-                Ad Space 1 (728x90)
-            </div>
-        </div>
-
-        <!-- Featured Categories -->
+<!-- Featured Categories -->
         <section class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
             <a href="/jobs/" class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition">
                 <i class="fas fa-briefcase text-3xl text-blue-600 mb-3"></i>
@@ -133,16 +123,7 @@
                 <p class="text-gray-600">Build your portfolio</p>
             </a>
         </section>
-
-        <!-- Ad Space 2 - Mid Content -->
-        <div class="max-w-4xl mx-auto mb-12">
-            <div class="ad-label">Advertisement</div>
-            <div class="bg-gray-100 h-24 flex items-center justify-center text-gray-500 border border-gray-200">
-                Ad Space 2 (728x90)
-            </div>
-        </div>
-
-        <!-- Latest Opportunities -->
+<!-- Latest Opportunities -->
         <section class="mb-12">
             <h2 class="text-2xl font-bold mb-6">Latest Opportunities</h2>
             <div id="jobs-feed" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -150,16 +131,7 @@
             </div>
         </section>
     </main>
-
-    <!-- Footer Ad -->
-    <div class="container mx-auto px-4 mb-8">
-        <div class="ad-label">Advertisement</div>
-        <div class="bg-gray-100 h-24 flex items-center justify-center text-gray-500 border border-gray-200">
-            Footer Ad Space (728x90)
-        </div>
-    </div>
-
-    <!-- Footer -->
+<!-- Footer -->
     <footer class="bg-gray-900 text-white py-12">
         <div class="container mx-auto px-4">
             <div class="grid md:grid-cols-4 gap-8">
@@ -201,7 +173,7 @@
         </div>
     </footer>
 
-    <script src="/scripts/site.js"></script>
-    <script src="/scripts/jobs-feed.js"></script>
+    <script defer src="/scripts/site.js"></script>
+    <script defer src="/scripts/jobs-feed.js"></script>
 </body>
 </html>

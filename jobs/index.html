@@ -5,8 +5,13 @@
      crossorigin="anonymous"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="theme-color" content="#1d4ed8">
+<meta name="robots" content="index, follow, max-image-preview:large">
+    <meta name="googlebot" content="index, follow">
     <title>Tech Jobs for Students - StudentTechProjects</title>
     <meta name="description" content="Browse latest tech jobs for students and fresh graduates. Find your dream job in technology.">
+    <link rel="preconnect" href="https://cdn.tailwindcss.com">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
     
     <link rel="canonical" href="https://studenttechprojects.com/jobs/">
     
@@ -21,8 +26,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     
     <style>
-        .ad-label { font-size: 12px; color: #666; text-align: center; margin-bottom: 5px; }
-        .breadcrumb-item + .breadcrumb-item:before { content: "›"; padding: 0 8px; color: #6b7280; }
+.breadcrumb-item + .breadcrumb-item:before { content: "›"; padding: 0 8px; color: #6b7280; }
     </style>
 </head>
 <body class="font-sans antialiased text-gray-800">
@@ -71,36 +75,13 @@
     <main class="container mx-auto px-4 py-8">
         <h1 class="text-3xl md:text-4xl font-bold mb-4">Tech Jobs for Students</h1>
         <p class="text-lg text-gray-600 mb-8">Find the latest job opportunities tailored for students and fresh graduates in the tech industry.</p>
-
-        <!-- Ad Space 1 -->
-        <div class="max-w-4xl mx-auto mb-8">
-            <div class="ad-label">Advertisement</div>
-            <div class="bg-gray-100 h-24 flex items-center justify-center text-gray-500 border border-gray-200">
-                Ad Space 1 (728x90)
-            </div>
-        </div>
-
-        <!-- Jobs List -->
+<!-- Jobs List -->
         <div id="jobs-feed" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
             <!-- Jobs will be loaded here -->
         </div>
-
-        <!-- Ad Space 2 -->
-        <div class="max-w-4xl mx-auto mb-12">
-            <div class="ad-label">Advertisement</div>
-            <div class="bg-gray-100 h-24 flex items-center justify-center text-gray-500 border border-gray-200">
-                Ad Space 2 (728x90)
-            </div>
-        </div>
-    </main>
+</main>
 
     <!-- Footer Ad and Footer (same as index.html) -->
-    <div class="container mx-auto px-4 mb-8">
-        <div class="ad-label">Advertisement</div>
-        <div class="bg-gray-100 h-24 flex items-center justify-center text-gray-500 border border-gray-200">
-            Footer Ad Space (728x90)
-        </div>
-    </div>
 
     <footer class="bg-gray-900 text-white py-12">
         <!-- Same footer as index.html -->
@@ -144,7 +125,7 @@
         </div>
     </footer>
 
-    <script src="/scripts/site.js"></script>
-    <script src="/scripts/jobs-feed.js"></script>
+    <script defer src="/scripts/site.js"></script>
+    <script defer src="/scripts/jobs-feed.js"></script>
 </body>
 </html>

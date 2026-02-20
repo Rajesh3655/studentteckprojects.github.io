@@ -195,7 +195,7 @@ async function loadFeed() {
 
         await displayItems(items, currentPage);
     } catch (error) {
-        console.error('Error loading feed:', error);
+        console.warn('Feed fallback activated:', error && error.message ? error.message : error);
         await displayItems(fallbackItems(currentPage), currentPage);
     }
 }
