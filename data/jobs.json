@@ -1,0 +1,50 @@
+[
+  {
+    "id": 1,
+    "title": "Software Development Engineer",
+    "company": "Amazon",
+    "slug": "amazon-sde-2024",
+    "type": "job",
+    "location": "Bengaluru, Hyderabad",
+    "postedDate": "2024-01-15",
+    "excerpt": "Amazon is hiring Software Development Engineers for 2024 batch. Work on cutting-edge technologies and solve complex problems at scale.",
+    "applyLink": "https://amazon.jobs"
+  },
+  {
+    "id": 4,
+    "title": "Full Stack Developer",
+    "company": "Flipkart",
+    "slug": "flipkart-fullstack-2024",
+    "type": "job",
+    "location": "Bengaluru",
+    "postedDate": "2024-01-12",
+    "excerpt": "Flipkart is hiring Full Stack Developers for their engineering team. Work on India's largest e-commerce platform.",
+    "applyLink": "https://flipkart.careers"
+  },
+  {
+    "id": 8,
+    "title": "DevOps Engineer",
+    "company": "Netflix",
+    "slug": "netflix-devops-2024",
+    "type": "job",
+    "location": "Remote, India",
+    "postedDate": "2024-01-08",
+    "excerpt": "Netflix is hiring DevOps engineers to build and maintain streaming infrastructure for millions of users.",
+    "applyLink": "https://netflix.careers"
+  },
+  {
+    "id": 11,
+    "title": "Cisco Off Campus Drive 2026: Software Engineer",
+    "company": "Cisco",
+    "slug": "cisco-software-engineer-2026",
+    "type": "job",
+    "location": "Bangalore",
+    "postedDate": "2026-02-20",
+    "excerpt": "Cisco is hiring Software Engineer freshers for 2024/2025/2026 batch. Bachelor's degree required. Salary ₹19-22 LPA. Apply now for Bangalore location.",
+    "applyLink": "https://jobs.cisco.com",
+    "batch": "2024/2025/2026",
+    "salary": "₹19-22 Lakhs per year",
+    "qualification": "Bachelor's degree in engineering",
+    "experience": "Fresher"
+  }
+]

@@ -1,0 +1,35 @@
+[
+  {
+    "id": 3,
+    "title": "Data Science Hackathon",
+    "company": "Microsoft",
+    "slug": "microsoft-data-hackathon",
+    "type": "hackathon",
+    "location": "Online",
+    "postedDate": "2024-01-13",
+    "excerpt": "Participate in Microsoft's data science hackathon. Win prizes up to ₹1,00,000 and get interview opportunities.",
+    "applyLink": "https://microsoft.hackathon.com"
+  },
+  {
+    "id": 6,
+    "title": "Smart India Hackathon 2024",
+    "company": "Government of India",
+    "slug": "smart-india-hackathon-2024",
+    "type": "hackathon",
+    "location": "Multiple Cities",
+    "postedDate": "2024-01-10",
+    "excerpt": "World's largest hackathon. Solve real-world problems and win cash prizes up to ₹1,00,000.",
+    "applyLink": "https://sih.gov.in"
+  },
+  {
+    "id": 10,
+    "title": "Blockchain Hackathon",
+    "company": "Polygon",
+    "slug": "polygon-blockchain-hackathon",
+    "type": "hackathon",
+    "location": "Online",
+    "postedDate": "2024-01-06",
+    "excerpt": "Build the next generation of decentralized applications on Polygon. Win crypto prizes and grants.",
+    "applyLink": "https://polygon.technology/hackathon"
+  }
+]

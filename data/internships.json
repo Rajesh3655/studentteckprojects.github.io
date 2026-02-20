@@ -1,0 +1,35 @@
+[
+  {
+    "id": 2,
+    "title": "Frontend Developer Intern",
+    "company": "Google",
+    "slug": "google-frontend-intern-2024",
+    "type": "internship",
+    "location": "Hyderabad, Mumbai",
+    "postedDate": "2024-01-14",
+    "excerpt": "Google is looking for passionate frontend developer interns to work on products used by billions of users worldwide.",
+    "applyLink": "https://careers.google.com"
+  },
+  {
+    "id": 5,
+    "title": "Machine Learning Intern",
+    "company": "Intel",
+    "slug": "intel-ml-intern-2024",
+    "type": "internship",
+    "location": "Bengaluru, Pune",
+    "postedDate": "2024-01-11",
+    "excerpt": "Intel's AI division is looking for ML interns to work on cutting-edge AI/ML projects and research.",
+    "applyLink": "https://intel.careers"
+  },
+  {
+    "id": 9,
+    "title": "iOS Developer Intern",
+    "company": "Apple",
+    "slug": "apple-ios-intern-2024",
+    "type": "internship",
+    "location": "Bengaluru",
+    "postedDate": "2024-01-07",
+    "excerpt": "Join Apple's iOS development team and work on exciting projects for the Apple ecosystem.",
+    "applyLink": "https://apple.careers"
+  }
+]

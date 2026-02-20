@@ -1,0 +1,13 @@
+[
+  {
+    "id": 7,
+    "title": "Cloud Computing Project",
+    "company": "AWS",
+    "slug": "aws-cloud-project",
+    "type": "project",
+    "location": "Remote",
+    "postedDate": "2024-01-09",
+    "excerpt": "Build scalable cloud applications using AWS services. Get mentorship from AWS experts.",
+    "applyLink": "https://aws.amazon.com/training"
+  }
+]

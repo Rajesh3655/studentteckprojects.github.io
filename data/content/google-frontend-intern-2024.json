@@ -1,0 +1,26 @@
+{
+  "intro": "Google is hiring Frontend Developer Interns for students who want to build user-facing products at scale. This internship focuses on modern web engineering, accessibility, and performance optimization across high-traffic products.",
+  "lastDate": "2026-03-31",
+  "jobDescription": "As a Frontend Developer Intern, you will collaborate with product and design teams to create responsive interfaces, improve user experience, and maintain high-quality web standards. You will work on production-grade systems and receive mentorship from experienced engineers.",
+  "responsibilities": [
+    "Build and improve reusable UI components",
+    "Implement responsive and accessible interfaces",
+    "Work with APIs and data integration layers",
+    "Write clean, maintainable JavaScript/TypeScript code",
+    "Participate in testing and code review"
+  ],
+  "minQualifications": [
+    "Pursuing B.Tech/B.E., BCA, MCA, or related program",
+    "Strong understanding of HTML, CSS, and JavaScript",
+    "Basic knowledge of React or similar frontend framework"
+  ],
+  "prefQualifications": [
+    "Experience with version control (Git)",
+    "Understanding of web performance optimization",
+    "Portfolio or GitHub projects"
+  ],
+  "howToApply": "Apply through the official Google Careers portal. Use an updated resume, include project links, and complete the application form carefully.",
+  "author": "StudentTechProjects Team",
+  "image": "/images/opportunities/google-frontend-intern-2024.svg",
+  "imageAlt": "Frontend Developer Intern at Google"
+}

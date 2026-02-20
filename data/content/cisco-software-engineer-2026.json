@@ -1,0 +1,26 @@
+{
+  "intro": "Cisco is hiring fresh graduates for the Software Engineer role in Bangalore. This opportunity is suitable for candidates from 2024, 2025, and 2026 batches who want to work on networking and cloud-scale engineering systems.",
+  "lastDate": "ASAP",
+  "jobDescription": "Develop and maintain software components used across Cisco platforms. Collaborate with engineering teams to build secure and scalable features, write clean code, and contribute to design and testing.",
+  "responsibilities": [
+    "Develop software modules and maintain coding standards",
+    "Participate in code reviews and quality checks",
+    "Debug production and pre-production issues",
+    "Work with cross-functional teams to deliver features",
+    "Write unit tests and improve reliability"
+  ],
+  "minQualifications": [
+    "Bachelor's degree in engineering or related field",
+    "Strong C/C++ fundamentals",
+    "Problem solving and communication skills"
+  ],
+  "prefQualifications": [
+    "Knowledge of networking basics",
+    "Understanding of secure coding principles",
+    "Familiarity with agile development"
+  ],
+  "howToApply": "Apply through Cisco's official careers portal using the Apply Now button below. Keep your resume and academic details ready.",
+  "author": "StudentTechProjects Team",
+  "image": "/images/opportunities/cisco-software-engineer-2026.svg",
+  "imageAlt": "Cisco Off Campus Drive 2026: Software Engineer at Cisco"
+}
