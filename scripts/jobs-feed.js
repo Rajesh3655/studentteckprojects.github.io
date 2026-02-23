@@ -21,6 +21,34 @@ const PAGE_TO_TYPE = {
 const HOME_SECTION_LIMIT = 9;
 
 function updateCategoryCounts(counts) {
+    function setCardCount(categoryKey, countValue) {
+        const idEl = document.getElementById(`count-${categoryKey}`);
+        if (idEl) {
+            idEl.textContent = String(countValue || 0);
+            return;
+        }
+
+        const hrefMap = {
+            jobs: '/jobs/',
+            internships: '/internships/',
+            hackathons: '/hackathons/',
+            projects: '/projects/'
+        };
+
+        const card = document.querySelector(`main section.grid a[href="${hrefMap[categoryKey]}"]`);
+        if (!card) return;
+
+        let countLine = card.querySelector(`[data-count-category="${categoryKey}"]`);
+        if (!countLine) {
+            countLine = document.createElement('p');
+            countLine.className = 'text-sm text-gray-500 mt-2';
+            countLine.setAttribute('data-count-category', categoryKey);
+            card.appendChild(countLine);
+        }
+
+        countLine.textContent = `${String(countValue || 0)} total`;
+    }
+
     const jobsEl = document.getElementById('count-jobs');
     const internshipsEl = document.getElementById('count-internships');
     const hackathonsEl = document.getElementById('count-hackathons');
@@ -30,6 +58,11 @@ function updateCategoryCounts(counts) {
     if (internshipsEl) internshipsEl.textContent = String(counts.internships || 0);
     if (hackathonsEl) hackathonsEl.textContent = String(counts.hackathons || 0);
     if (projectsEl) projectsEl.textContent = String(counts.projects || 0);
+
+    setCardCount('jobs', counts.jobs || 0);
+    setCardCount('internships', counts.internships || 0);
+    setCardCount('hackathons', counts.hackathons || 0);
+    setCardCount('projects', counts.projects || 0);
 }
 
 function getCurrentPage() {
