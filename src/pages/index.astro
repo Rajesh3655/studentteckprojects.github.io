@@ -1,0 +1,60 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import OpportunityCard from "../components/OpportunityCard.astro";
+import { categoryLabel, canonicalPath, loadCategory, loadAllOpportunities } from "../lib/opportunities";
+import type { Category } from "../types";
+
+const categories: Category[] = ["jobs", "projects", "internships", "hackathons"];
+const sections = categories.map((category) => ({
+  category,
+  label: categoryLabel(category),
+  items: loadCategory(category).slice(0, 9),
+  total: loadCategory(category).length
+}));
+const latest = loadAllOpportunities().slice(0, 20);
+---
+<BaseLayout
+  title="StudentTechProjects - Jobs, Projects, Internships, Hackathons"
+  description="Discover latest jobs, projects, internships, and hackathons. SEO-ready static pages for fast indexing."
+  canonicalPath="/"
+>
+  <h1>Your Gateway to Tech Opportunities</h1>
+  <p>Find curated opportunities and project ideas with detailed pages optimized for Google indexing.</p>
+
+  <section class="count-grid" aria-label="Opportunity counts">
+    {sections.map((section) => (
+      <article class="card count-card">
+        <h3>{section.total}</h3>
+        <p>{section.label}</p>
+      </article>
+    ))}
+  </section>
+
+  {sections.map((section) => (
+    <section>
+      <div class="section-head">
+        <h2>{section.label}</h2>
+        <a class="btn secondary" href={canonicalPath(section.category)}>View All</a>
+      </div>
+      <div class="grid">
+        {section.items.map((item) => (
+          <OpportunityCard item={item} category={section.category} />
+        ))}
+      </div>
+    </section>
+  ))}
+
+  <section>
+    <div class="section-head">
+      <h2>Latest Opportunities</h2>
+      <a class="btn secondary" href="/opportunities/">View All</a>
+    </div>
+    <div class="grid">
+      {latest.map((item) => {
+        const category = `${item.type}s` as Category;
+        return <OpportunityCard item={item} category={category} />;
+      })}
+    </div>
+  </section>
+</BaseLayout>
+

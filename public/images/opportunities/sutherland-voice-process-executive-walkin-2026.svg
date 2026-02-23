@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="Sutherland Walk-in Drive 2026 - Voice Process Executive at Sutherland">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0b3b2e"/>
+      <stop offset="100%" stop-color="#0f766e"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect x="70" y="70" width="260" height="260" rx="28" fill="#ffffff" fill-opacity="0.98"/>
+  <image x="95" y="95" width="210" height="210" preserveAspectRatio="xMidYMid meet" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADUAAAA2CAYAAABnctHeAAAFBElEQVRogdWaz2/aSBTHv8+YBqQo4bD3IhIpx3r/gjqnPaSoXqms9rDSkptvpX9ByF+Q5Da3sLcqIIU23TPpXxByXKlJyT0HQCslKSZvD0DCD8/YMIZNvhIHPH72+3jsN2/mDf1SeIMoJKpmCl78FRgtN3dTl553tOSA6BhAHUQNAKfwYp/c3/9tROIIANKFEpWEDcYOAHvosttu7qbke/4j1Ji4AaYSXngHruM1dXwydIxFOWmBUcMIEADwoSgn83427m93VYC2J1soDUIRndiZOFpydPzSgkI3pniiCrDcTckfDOjB0bHMNoy0oHrfgcw5YHYwtW2Q9HoKes7NCywQSlQStjhK7IiqmZKdE8K5PVFOWjPaTg2mhBLlxB4Ytd4HbNY0wFIA1xYFJoUSlUQRQGHokLUgsJa/eXgweU8x3vscjQZMYt+3taEJpnj9+C9Jgz7Yj5itsK3rgkmh3NxdAcC8wJTSBVMGCjd3m0fkYHTeyyrU0gELDOmRgBE2Qdjt54S+gUJiOxNY6IRWlBMlAH9KmuuIe5u6iaj83kkL4FMAq74nEDbdd7enD3+nydKjArs8WckzaPQ6hLrnxXc3nGtfeyUYYdd9d1sc/DUA4NtJyrn4vLLzT/Un6WsE6L+KAzGoiF5m//hjFMxY5/vl3yuycUz+KjKP3NO4qi6nCXwMoqJpdGqLACNwUdKU4nuqTQnWQrw7cj3DM2KPcxeCtQiwTLZdIrB0HAsE65oWgA8APiDupcdfeVpf++MU4Ndjtk0yeDOz1ZZOywH9b6z/bR3K2gm8ncm2Syof/GT4AAEBT2ugOfcYGHR4ebKSV/ngJwOgr5K2ZwtmeF3TAeFc0v4swYwN57rpeXH7OYBdfFndU/kwkAEATwrM4J8hS4sYhW8nq9LAMtBD7rfhXDfX3rQskju1GLCtdp0MtiEBIyAfBDaR0GayrXwQ2MWXlK266P8N5pulB4GBuRb04S4C7OJk5dgvUZBOPQLAQkWkeYMB5PhlQMr5VCbbyjP4QNb+JMB8UrvASeJ6tl3QHUMiA5NF5zGwUCu0UQyOUYAph50hsNDLzk8BLHA8JVim6VlTraU/BzCi++YElKgkbFFJvhcfl9N+Rplsu8SgXyH5cBl0ePF5ZUfmFDBXsKvMVrs+AiUqiSoYNTDvI+Z9ly1BrWebVXVEomLQqD8PMAZXgaFA0S9zvh01la+thRkc551SDcB64yl9jXfv94Hh6HfPEmM1mNntWgA+TTQSzjudFw2ZQwNFAZbJtvJr2ab90ukVwx+WyETVTKFjNiBbW1MUp6NQlOuKDz3VM9CvOIxLfFxOi0rytayE83D/iJbfgLHBN4qKw7BEJWEj5p2B+RTgM1FemmvwGGgipEcKxrQPYMgJyi8CzHfwjQ6M05PHogFT2SvqU5GASUo2+mCikrBltgH1KU2wuFcASLLuoQXWgmc2ZHYh6lOzg7mO10S8Y0cM1gLIVm3QCpXQPg0wPgDhE0C2apcaMHV9KqD4pdo91hvc6wBe+ttyyc3dzVQjHtdUUw/tHgM5ctvgHgurqfcmhQPzdy7YlvL9TSlammnD1ZBzV/5nyJ96IBiP7x2cXjPvInNzN3U3d5vuVd39RHlRXtqX2fqD0TlABT+baaS93RToB4EfMRtEDkAWwK/6TS03dytNaUQ5aYHYAaOJrlmNah9tJFB+EpWEDc9sRLnhN6z+A+SE9U5MMooOAAAAAElFTkSuQmCC"/>
+  <text x="380" y="240" fill="#ffffff" font-size="50" font-family="Segoe UI, Arial, sans-serif" font-weight="700">Sutherland Walk-in Drive 2026 - Voice Process Executive</text>
+  <text x="380" y="315" fill="#dbeafe" font-size="38" font-family="Segoe UI, Arial, sans-serif">Sutherland</text>
+  <text x="380" y="390" fill="#bfdbfe" font-size="26" font-family="Segoe UI, Arial, sans-serif">StudentTechProjects</text>
+</svg>

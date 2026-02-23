@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="Design Engineer II at Cadence">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#3f1d2e"/>
+      <stop offset="100%" stop-color="#be185d"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect x="70" y="70" width="260" height="260" rx="28" fill="#ffffff" fill-opacity="0.98"/>
+  <image x="95" y="95" width="210" height="210" preserveAspectRatio="xMidYMid meet" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAACXUlEQVQ4jZ1QTU8TURS9M4VRSnX4aAlWPjpBGiMGppvGsKCjC2OIaWpMXBs33Wl16QLRvf4BNXTjxiYiDcgKO1RdGBMZgzQRAm2hQtMybcd0xo7T4brh1dKy8iUv9+Xc884591KICMed6vZi4KCw5gEAoG39Sbp3PEbb+tONvJZGwEg8DxnSsykwfnU29ixDt8KMdzpEMaxCMKo+gf7x/oy5+fo2IVsGrs5RDFs8KKx5qokXd1HNcFTniHTyWkSoiSAiICIY6XcBNexE9dX5gimv8gQn90AvsZUPoRk17MTK0p03BK8Rfi/ejKlhJ1b3PvkaP9eLaBHvlhp2IjGp7YDuGlmhu0ZWLL3jy8duFQAohlVavdMPqomX94Bhi007+J9Dk8fKTomP/cj56pvHYcl9dfAIRuZzPVzYgmAEt/LlQUSEgqqzEIwgBCM4Ff3+mPCEp2IMghH8ul3kEfFfAsHtWAYAENfzlwEA3kq7N0gv+m3XT97iel7oaGstevo7pCMj+MeccwAA8Y28r74KbocoZRS+qP1hSXTB7RCbdiC4HbFDBx+pfB8r+UfPzJFE0k7Jc2gWbRLotDKK4HaIKVnjZqWfgZSscf4xZzTAn50lieIb+xP1ZkcEAAAmhu1xAIAn84lHh8T3nL097eq2JsX1vE/KlHhXtzXJ2dvTTQKmaVKTF+zzAABSRuFPn6CVUbtlVZblrkuDts8pWeNSssZdv9izYBiGxTRNqiag6zqjaVr7uY6WzT6WyQAAeAesX3K5XE82m+2dHLYuEKMrQ6eWyuWyrVKptBmGYfkL9zBaXHt7bDcAAAAASUVORK5CYII="/>
+  <text x="380" y="240" fill="#ffffff" font-size="50" font-family="Segoe UI, Arial, sans-serif" font-weight="700">Design Engineer II</text>
+  <text x="380" y="315" fill="#dbeafe" font-size="38" font-family="Segoe UI, Arial, sans-serif">Cadence</text>
+  <text x="380" y="390" fill="#bfdbfe" font-size="26" font-family="Segoe UI, Arial, sans-serif">StudentTechProjects</text>
+</svg>

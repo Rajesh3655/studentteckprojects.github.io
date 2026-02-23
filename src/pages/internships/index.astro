@@ -1,0 +1,19 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import OpportunityCard from "../../components/OpportunityCard.astro";
+import { loadCategory } from "../../lib/opportunities";
+
+const items = loadCategory("internships");
+---
+<BaseLayout
+  title="Internships - StudentTechProjects"
+  description="Internship opportunities from top companies and startups."
+  canonicalPath="/internships/"
+>
+  <h1>Internships</h1>
+  <p>{items.length} internships available.</p>
+  <div class="grid">
+    {items.map((item) => <OpportunityCard item={item} category="internships" />)}
+  </div>
+</BaseLayout>
+

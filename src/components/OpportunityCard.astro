@@ -1,0 +1,31 @@
+---
+import type { Category, Opportunity } from "../types";
+import { canonicalPath, experienceLabel, formatDate, isNew } from "../lib/opportunities";
+
+interface Props {
+  item: Opportunity;
+  category: Category;
+}
+
+const { item, category } = Astro.props;
+const href = canonicalPath(category, item.slug);
+const newLabel = isNew(item.postedDate);
+const expLabel = experienceLabel(item.experience);
+const actionLabel = category === "projects" ? "View Details" : "Apply Now";
+---
+
+<article class="card opportunity-card">
+  <div class="card-head">
+    <h3><a href={href}>{item.title}</a></h3>
+    {newLabel && <span class="badge-new">NEW</span>}
+  </div>
+  <p class="muted company">{item.company}</p>
+  <p class="muted">{item.location || "Not specified"} • {formatDate(item.postedDate)}</p>
+  <p class="experience">{expLabel}</p>
+  <p>{item.excerpt || "Visit detail page for full information."}</p>
+  <div class="actions">
+    <a class="btn" href={category === "projects" ? href : (item.applyLink || href)} target={category === "projects" ? undefined : "_blank"} rel={category === "projects" ? undefined : "noopener noreferrer"}>{actionLabel}</a>
+    {category !== "projects" && <a class="link" href={href}>View Details</a>}
+  </div>
+</article>
+

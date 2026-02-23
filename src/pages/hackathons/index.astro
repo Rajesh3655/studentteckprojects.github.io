@@ -1,0 +1,19 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import OpportunityCard from "../../components/OpportunityCard.astro";
+import { loadCategory } from "../../lib/opportunities";
+
+const items = loadCategory("hackathons");
+---
+<BaseLayout
+  title="Hackathons - StudentTechProjects"
+  description="Hackathons to build, compete, and get recognized."
+  canonicalPath="/hackathons/"
+>
+  <h1>Hackathons</h1>
+  <p>{items.length} hackathons available.</p>
+  <div class="grid">
+    {items.map((item) => <OpportunityCard item={item} category="hackathons" />)}
+  </div>
+</BaseLayout>
+

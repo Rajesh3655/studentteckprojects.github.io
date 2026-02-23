@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="Customer Support Executive at Tech Mahindra">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0b1220"/>
+      <stop offset="100%" stop-color="#1e3a8a"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect x="70" y="70" width="260" height="260" rx="28" fill="#ffffff" fill-opacity="0.98"/>
+  <image x="95" y="95" width="210" height="210" preserveAspectRatio="xMidYMid meet" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAACoklEQVRoge2YwWvTUBzHv78kw4mIHqbdumw4ERl6EJStKyIqogdBD+Ih7+Dfo/+E55eDeFDwoIiKSLcOBQ/KEHGyZt3qdlBENlnzvh6GUpyWZk37UujnmpdfPp8QeOEJepAoN3XJOK5ywTWxLdMqi/nipGcYAFQAjgOAI7jjWfZqysLQ2f37BuIApIIxF/+1JpMBleHCVRAKUlcg3GZrMxMQHZ4+RQcKgAIwjhY/bqsB1fyZoTgeUBAqAsXdzLASUBmZuQFSxQY3IWxrVtcCKrmZAhwqIQKSubTmdjQgGi34jKkEEhA8DQLtve+dpB5AQKLctBJBwBjXAEldupHUAirDxfMCBtH2RnOgk9KNtBVQOVQ8Jh4DkgowJ7ol3UjigIpf3OvUTUCBIs1l2rBuoOWAar5wpW6gUI+Vgezp6IedgKYBK8NTJ7coCiIqNji6vTlm6/9vR8DikQsH3c1NBVDVgXOSLd8d/AlYys1ch1DJ5kZgUygp3vJI4bYxuAXhqG2Z3eAAAAQ9KQ/8Duhh+gG26QfYph9gm36AbfoBtundAGIZyNDRYqsQCEHR47XZB0CPBBB4CYiOBwf1xOfnXxuvZTaAwCeQekCoR1bn3/1vXcYC+JMQ7TnQ+erc41buyESACJ4IoY3nhuNRaSPJvTYD3ouIZl1Cf630cbdDuh3wTSCakHBstfQijYFdCRDwIYnQr5W1pHxA3bEAAd4QDMUV7S+Xo049J9UAAWoUhDCi/drsXJqz/0daAfcgov2V2fspzWuZdgJKoGjX3dL56uv11IwSkjCASwC0GGj/S/ltR4wS0kpADEJDoMdWy486bpSQZgHPIKJ/bLnh5Pqr710zSsjfAR8A0XVHwolqacGKUUI8AKDIXcfE2q/NP7UtlJRfYzHni67E7kYAAAAASUVORK5CYII="/>
+  <text x="380" y="240" fill="#ffffff" font-size="50" font-family="Segoe UI, Arial, sans-serif" font-weight="700">Customer Support Executive</text>
+  <text x="380" y="315" fill="#dbeafe" font-size="38" font-family="Segoe UI, Arial, sans-serif">Tech Mahindra</text>
+  <text x="380" y="390" fill="#bfdbfe" font-size="26" font-family="Segoe UI, Arial, sans-serif">StudentTechProjects</text>
+</svg>
