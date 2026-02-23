@@ -16,27 +16,19 @@
             .replace(/'/g, '&#39;');
     }
 
-    function getQueryParams() {
-        return new URLSearchParams(window.location.search || '');
-    }
-
     function detailPageUrl(category, slug) {
-        const safeCategory = encodeURIComponent(String(category || 'jobs'));
+        const safeCategory = String(category || 'jobs');
         const safeSlug = encodeURIComponent(String(slug || ''));
-        return `/opportunity.html?category=${safeCategory}&slug=${safeSlug}`;
+        return `/${safeCategory}/${safeSlug}.html`;
     }
 
     function fileSlugFromPath() {
-        const qsSlug = getQueryParams().get('slug');
-        if (qsSlug) return qsSlug;
         const parts = window.location.pathname.split('/').filter(Boolean);
         const file = parts[parts.length - 1] || '';
         return file.replace(/\.html$/i, '');
     }
 
     function categoryFromPath() {
-        const qsCategory = getQueryParams().get('category');
-        if (qsCategory && DATA_FILES[qsCategory]) return qsCategory;
         const parts = window.location.pathname.split('/').filter(Boolean);
         const first = parts[0] || 'jobs';
         if (DATA_FILES[first]) return first;
@@ -51,10 +43,7 @@
         return `/images/opportunities/${category}-default.svg`;
     }
 
-    function normalizedPathname(category, slug) {
-        if (category && slug) {
-            return detailPageUrl(category, slug);
-        }
+    function normalizedPathname() {
         const path = window.location.pathname || '/';
         return path.endsWith('/') ? path : path;
     }
@@ -402,7 +391,7 @@
         const data = Object.assign({}, base, details);
         const pageTitle = `${data.title} | StudentTechProjects`;
         const description = data.excerpt || data.intro || `${data.title} opportunity for students.`;
-        const canonical = `https://studenttechprojects.com${normalizedPathname(category, slug)}`;
+        const canonical = `https://studenttechprojects.com${normalizedPathname()}`;
         const imagePath = data.image || `/images/opportunities/${slug}.svg`;
         const imageAlt = data.imageAlt || `${data.title || 'Opportunity'} - ${data.company || 'StudentTechProjects'}`;
         const imageAbsolute = `https://studenttechprojects.com${imagePath}`;

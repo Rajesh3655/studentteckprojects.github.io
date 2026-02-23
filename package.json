@@ -6,7 +6,10 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
-    "preview": "astro preview"
+    "preview": "astro preview",
+    "build:details": "node scripts/generate-detail-pages.js",
+    "build:sitemap": "node scripts/generate-sitemap.js",
+    "build:static": "npm run build:details && npm run build:sitemap"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.6.0",
