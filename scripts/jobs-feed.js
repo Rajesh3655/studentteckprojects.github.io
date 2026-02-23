@@ -464,9 +464,17 @@ function fallbackItems(currentPage) {
 
 async function loadFeed() {
     const currentPage = getCurrentPage();
+    let items = [];
+
+    const searchInput = ensureSearchUi(currentPage, async (value) => {
+        const q = normalizeText(value);
+        const filtered = q ? items.filter(item => matchesSearch(item, q)) : items;
+        const countEl = document.getElementById('feed-search-count');
+        if (countEl) countEl.textContent = `${filtered.length} result${filtered.length === 1 ? '' : 's'}`;
+        await displayItems(filtered, currentPage);
+    });
 
     try {
-        let items = [];
         let categoryCounts = null;
 
         if (currentPage === 'home' || currentPage === 'opportunities') {
@@ -500,13 +508,6 @@ async function loadFeed() {
         }
 
         if (categoryCounts && currentPage === 'home') updateCategoryCounts(categoryCounts);
-        const searchInput = ensureSearchUi(currentPage, async (value) => {
-            const q = normalizeText(value);
-            const filtered = q ? items.filter(item => matchesSearch(item, q)) : items;
-            const countEl = document.getElementById('feed-search-count');
-            if (countEl) countEl.textContent = `${filtered.length} result${filtered.length === 1 ? '' : 's'}`;
-            await displayItems(filtered, currentPage);
-        });
 
         if (searchInput) {
             const countEl = document.getElementById('feed-search-count');
@@ -524,7 +525,12 @@ async function loadFeed() {
                 projects: 0
             });
         }
-        await displayItems(fallbackItems(currentPage), currentPage);
+        items = fallbackItems(currentPage);
+        if (searchInput) {
+            const countEl = document.getElementById('feed-search-count');
+            if (countEl) countEl.textContent = `${items.length} result${items.length === 1 ? '' : 's'}`;
+        }
+        await displayItems(items, currentPage);
     }
 }
 
