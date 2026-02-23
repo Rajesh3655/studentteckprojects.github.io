@@ -157,6 +157,39 @@
         return `https://www.google.com/search?tbm=isch&q=${encodeURIComponent(query)}`;
     }
 
+    function inferProjectDomain(title) {
+        const t = String(title || '').toLowerCase();
+        if (/ai|ml|machine learning|deep learning|nlp|computer vision/.test(t)) return 'Artificial Intelligence';
+        if (/cloud|aws|azure|gcp|devops|kubernetes|docker/.test(t)) return 'Cloud Computing';
+        if (/blockchain|web3|crypto/.test(t)) return 'Blockchain';
+        if (/cyber|security|soc|forensic/.test(t)) return 'Cybersecurity';
+        if (/android|ios|mobile/.test(t)) return 'Mobile Development';
+        if (/web|frontend|backend|full stack/.test(t)) return 'Web Development';
+        if (/data|analytics|bi|visualization/.test(t)) return 'Data Analytics';
+        if (/iot|embedded|sensor|robot/.test(t)) return 'IoT / Embedded Systems';
+        return 'Software Engineering';
+    }
+
+    function generatedExcerpt(data, category) {
+        const title = String(data && data.title ? data.title : 'Opportunity').trim();
+        const company = String(data && data.company ? data.company : 'the organization').trim();
+
+        if (category === 'projects') {
+            const domain = inferProjectDomain(title);
+            return `${title} is a college student project title in ${domain} by ${company}. Build a structured solution with clear modules, outcomes, and future enhancements.`;
+        }
+
+        if (category === 'hackathons') {
+            return `${company} is organizing ${title}. Review problem statement, eligibility, timeline, and submit before deadline.`;
+        }
+
+        if (category === 'internships') {
+            return `${company} is offering ${title}. Check eligibility, required skills, and application process.`;
+        }
+
+        return `${company} is hiring for ${title}. Check role details, qualifications, and official application steps.`;
+    }
+
     async function copyText(text) {
         try {
             if (navigator.clipboard && navigator.clipboard.writeText) {
@@ -274,6 +307,7 @@
     function projectTemplateData(data) {
         const title = data.title || 'Project';
         const company = data.company || 'Organizer';
+        const domain = data.domain || inferProjectDomain(title);
         const rawModules = Array.isArray(data.projectModules) && data.projectModules.length ? data.projectModules : [
             { name: 'Core Module', description: 'Implements the primary project workflow and business logic.' },
             { name: 'Interface Module', description: 'Provides user-facing screens and interactions.' },
@@ -293,9 +327,9 @@
         });
 
         return {
-            introduction: data.projectIntroduction || `${title} is designed to solve practical industry problems through a structured, data-driven implementation approach.`,
-            problemStatement: data.problemStatement || `${company} requires better planning, execution, and optimization through an actionable project framework.`,
-            domain: data.domain || 'Software Engineering',
+            introduction: data.projectIntroduction || `${title} is a college student project title designed to solve practical ${domain} problems through a structured implementation approach.`,
+            problemStatement: data.problemStatement || `${company} needs a scalable and measurable ${domain} solution with clear architecture and execution milestones.`,
+            domain: domain,
             duration: data.duration || '8-12 weeks',
             difficulty: data.difficulty || 'Intermediate',
             teamSize: data.teamSize || '2-4 members',
@@ -391,7 +425,7 @@
 
         const data = Object.assign({}, base);
         const pageTitle = `${data.title} | StudentTechProjects`;
-        const description = data.excerpt || data.intro || `${data.title} opportunity for students.`;
+        const description = data.excerpt || data.intro || generatedExcerpt(data, category);
         const canonical = `https://studenttechprojects.com${detailPageUrl(category, slug)}`;
         const imagePath = data.image || `/images/opportunities/${slug}.svg`;
         const imageAlt = data.imageAlt || `${data.title || 'Opportunity'} - ${data.company || 'StudentTechProjects'}`;
@@ -437,7 +471,7 @@
         ];
         const pageTypeLabel = pageLabel(category);
         const overview = overviewRows(category, data, pageTypeLabel);
-        const descText = data.jobDescription || data.description || data.excerpt || typeConfig.descFallback;
+        const descText = data.jobDescription || data.description || data.excerpt || generatedExcerpt(data, category) || typeConfig.descFallback;
         const projectModules = Array.isArray(data.projectModules) && data.projectModules.length
             ? data.projectModules
             : [

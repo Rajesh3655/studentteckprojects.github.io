@@ -94,6 +94,26 @@ function escapeHtml(value) {
         .replace(/'/g, '&#39;');
 }
 
+function generatedExcerpt(item) {
+    const title = String(item && item.title ? item.title : 'Opportunity').trim();
+    const company = String(item && item.company ? item.company : 'the organization').trim();
+    const type = String(item && item.type ? item.type : '').toLowerCase();
+
+    if (type === 'project') {
+        return `${title} is a college student project title from ${company}, focused on practical implementation, module-wise execution, and portfolio-ready outcomes.`;
+    }
+
+    if (type === 'hackathon') {
+        return `${company} is organizing ${title}. Review eligibility, prepare your team, and submit before the deadline.`;
+    }
+
+    if (type === 'internship') {
+        return `${company} is offering ${title}. Check eligibility, required skills, and apply through the official process.`;
+    }
+
+    return `${company} is hiring for ${title}. Check role details, eligibility, and application steps on the detail page.`;
+}
+
 function getDetailPath(item, currentPage) {
     const pageCategory = PAGE_TO_TYPE[currentPage] ? currentPage : null;
     const category = pageCategory || TYPE_TO_CATEGORY[item.type] || 'jobs';
@@ -148,7 +168,7 @@ async function buildCards(list, currentPage, latestJobDate) {
             <p class="text-gray-500 text-sm mb-4">${escapeHtml(item.location || 'Not specified')} • ${escapeHtml(item.postedDate || '')}</p>
             ${projectMeta}
             ${experienceLine}
-            <p class="text-gray-700 mb-4 line-clamp-3">${escapeHtml(item.excerpt || '')}</p>
+            <p class="text-gray-700 mb-4 line-clamp-3">${escapeHtml(item.excerpt || generatedExcerpt(item))}</p>
             ${cta}
         </article>
     `;
