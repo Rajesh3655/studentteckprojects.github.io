@@ -5,11 +5,11 @@ const DATA_FILES = {
     projects: '/data/projects.json'
 };
 
-const TYPE_TO_PATH = {
-    job: '/jobs/',
-    internship: '/internships/',
-    hackathon: '/hackathons/',
-    project: '/projects/'
+const TYPE_TO_CATEGORY = {
+    job: 'jobs',
+    internship: 'internships',
+    hackathon: 'hackathons',
+    project: 'projects'
 };
 
 const PAGE_TO_TYPE = {
@@ -62,12 +62,9 @@ function escapeHtml(value) {
 }
 
 function getDetailPath(item, currentPage) {
-    if (item && item.url) return item.url;
-    if (currentPage !== 'home') {
-        return `/${currentPage}/${item.slug}.html`;
-    }
-    const base = TYPE_TO_PATH[item.type] || '/jobs/';
-    return `${base}${item.slug}.html`;
+    const pageCategory = PAGE_TO_TYPE[currentPage] ? currentPage : null;
+    const category = pageCategory || TYPE_TO_CATEGORY[item.type] || 'jobs';
+    return `/opportunity.html?category=${encodeURIComponent(category)}&slug=${encodeURIComponent(item.slug || '')}`;
 }
 
 async function resolveDetailPath(item, currentPage) {

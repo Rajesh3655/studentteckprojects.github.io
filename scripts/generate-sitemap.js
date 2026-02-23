@@ -8,6 +8,12 @@ const ROOT = path.resolve(__dirname, '..');
 const SITE_URL = 'https://studenttechprojects.com';
 const OUTPUT_FILE = path.join(ROOT, 'sitemap.xml');
 const CHANGEFREQ = 'weekly';
+const CATEGORY_FILES = {
+    jobs: 'jobs.json',
+    internships: 'internships.json',
+    hackathons: 'hackathons.json',
+    projects: 'projects.json'
+};
 
 const SKIP_DIRS = new Set([
     '.git',
@@ -70,7 +76,7 @@ function buildSitemap() {
     const htmlFiles = [];
     walkHtmlFiles(ROOT, htmlFiles);
 
-    const urls = htmlFiles
+    const staticUrls = htmlFiles
         .map(function (relPath) {
             const fullPath = path.join(ROOT, relPath);
             const stat = fs.statSync(fullPath);
@@ -83,6 +89,45 @@ function buildSitemap() {
                 changefreq: CHANGEFREQ,
                 priority: priorityFor(urlPath)
             };
+        })
+        .filter(function (item) {
+            return item.loc !== `${SITE_URL}/opportunity.html`;
+        });
+
+    const detailUrls = Object.entries(CATEGORY_FILES).flatMap(function ([category, fileName]) {
+        const dataFile = path.join(ROOT, 'data', fileName);
+        if (!fs.existsSync(dataFile)) return [];
+
+        let list = [];
+        try {
+            const raw = fs.readFileSync(dataFile, 'utf8');
+            const parsed = JSON.parse(raw);
+            list = Array.isArray(parsed) ? parsed : [];
+        } catch (_err) {
+            list = [];
+        }
+
+        const dataLastmod = fs.statSync(dataFile).mtime.toISOString().slice(0, 10);
+
+        return list
+            .filter(function (item) {
+                return item && typeof item.slug === 'string' && item.slug.trim().length > 0;
+            })
+            .map(function (item) {
+                const slug = item.slug.trim();
+                return {
+                    loc: `${SITE_URL}/opportunity.html?category=${encodeURIComponent(category)}&slug=${encodeURIComponent(slug)}`,
+                    lastmod: dataLastmod,
+                    changefreq: CHANGEFREQ,
+                    priority: '0.8'
+                };
+            });
+    });
+
+    const urls = staticUrls
+        .concat(detailUrls)
+        .filter(function (item, index, arr) {
+            return arr.findIndex(function (x) { return x.loc === item.loc; }) === index;
         })
         .sort(function (a, b) {
             return a.loc.localeCompare(b.loc);

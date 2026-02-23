@@ -17,18 +17,26 @@
     }
 
     function detailPageUrl(category, slug) {
-        const safeCategory = String(category || 'jobs');
+        const safeCategory = encodeURIComponent(String(category || 'jobs'));
         const safeSlug = encodeURIComponent(String(slug || ''));
-        return `/${safeCategory}/${safeSlug}.html`;
+        return `/opportunity.html?category=${safeCategory}&slug=${safeSlug}`;
+    }
+
+    function getQueryParams() {
+        return new URLSearchParams(window.location.search || '');
     }
 
     function fileSlugFromPath() {
+        const querySlug = getQueryParams().get('slug');
+        if (querySlug) return querySlug;
         const parts = window.location.pathname.split('/').filter(Boolean);
         const file = parts[parts.length - 1] || '';
         return file.replace(/\.html$/i, '');
     }
 
     function categoryFromPath() {
+        const queryCategory = getQueryParams().get('category');
+        if (queryCategory && DATA_FILES[queryCategory]) return queryCategory;
         const parts = window.location.pathname.split('/').filter(Boolean);
         const first = parts[0] || 'jobs';
         if (DATA_FILES[first]) return first;
@@ -381,17 +389,10 @@
             return;
         }
 
-        let details = {};
-        try {
-            details = await fetchJson(`/data/content/${slug}.json`);
-        } catch (_err) {
-            details = {};
-        }
-
-        const data = Object.assign({}, base, details);
+        const data = Object.assign({}, base);
         const pageTitle = `${data.title} | StudentTechProjects`;
         const description = data.excerpt || data.intro || `${data.title} opportunity for students.`;
-        const canonical = `https://studenttechprojects.com${normalizedPathname()}`;
+        const canonical = `https://studenttechprojects.com${detailPageUrl(category, slug)}`;
         const imagePath = data.image || `/images/opportunities/${slug}.svg`;
         const imageAlt = data.imageAlt || `${data.title || 'Opportunity'} - ${data.company || 'StudentTechProjects'}`;
         const imageAbsolute = `https://studenttechprojects.com${imagePath}`;

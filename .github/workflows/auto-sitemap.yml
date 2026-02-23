@@ -1,4 +1,4 @@
-name: Auto Static Sync
+name: Auto Sitemap
 
 on:
   push:
@@ -10,7 +10,7 @@ permissions:
   contents: write
 
 jobs:
-  update-static:
+  update-sitemap:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -23,19 +23,17 @@ jobs:
         with:
           node-version: "20"
 
-      - name: Generate detail pages and sitemap
-        run: |
-          node scripts/generate-detail-pages.js
-          node scripts/generate-sitemap.js
+      - name: Generate sitemap.xml
+        run: node scripts/generate-sitemap.js
 
-      - name: Commit generated static changes
+      - name: Commit sitemap changes
         run: |
-          if git diff --quiet -- sitemap.xml jobs internships hackathons projects; then
-            echo "No static changes"
+          if git diff --quiet -- sitemap.xml; then
+            echo "No sitemap changes"
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add sitemap.xml jobs internships hackathons projects
-          git commit -m "chore: auto-generate detail pages and sitemap [skip ci]"
+          git add sitemap.xml
+          git commit -m "chore: auto-update sitemap [skip ci]"
           git push
