@@ -25,312 +25,6 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://studenttechprojects.com/dist/</loc>
-    <lastmod>2026-02-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://studenttechprojects.com/dist/hackathons/</loc>
-    <lastmod>2026-02-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://studenttechprojects.com/dist/hackathons/microsoft-data-hackathon/</loc>
-    <lastmod>2026-02-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://studenttechprojects.com/dist/hackathons/polygon-blockchain-hackathon/</loc>
-    <lastmod>2026-02-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://studenttechprojects.com/dist/hackathons/smart-india-hackathon-2024/</loc>
-    <lastmod>2026-02-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://studenttechprojects.com/dist/internships/</loc>
-    <lastmod>2026-02-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://studenttechprojects.com/dist/internships/apple-ios-intern-2024/</loc>
-    <lastmod>2026-02-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://studenttechprojects.com/dist/internships/google-frontend-intern-2024/</loc>
-    <lastmod>2026-02-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://studenttechprojects.com/dist/internships/intel-ml-intern-2024/</loc>
-    <lastmod>2026-02-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://studenttechprojects.com/dist/jobs/</loc>
-    <lastmod>2026-02-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://studenttechprojects.com/dist/jobs/adobe-research-scientist-engineer-intern-2026/</loc>
-    <lastmod>2026-02-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://studenttechprojects.com/dist/jobs/amazon-sde-2024/</loc>
-    <lastmod>2026-02-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://studenttechprojects.com/dist/jobs/amd-software-development-engineer/</loc>
-    <lastmod>2026-02-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://studenttechprojects.com/dist/jobs/axa-technical-lead/</loc>
-    <lastmod>2026-02-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://studenttechprojects.com/dist/jobs/cadence-design-engineer-ii/</loc>
-    <lastmod>2026-02-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://studenttechprojects.com/dist/jobs/cisco-software-engineer-2026/</loc>
-    <lastmod>2026-02-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://studenttechprojects.com/dist/jobs/cognizant-analyst-trainee-2026/</loc>
-    <lastmod>2026-02-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://studenttechprojects.com/dist/jobs/diligent-software-engineer/</loc>
-    <lastmod>2026-02-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://studenttechprojects.com/dist/jobs/drdo-nstl-jrf-walkin-2026/</loc>
-    <lastmod>2026-02-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://studenttechprojects.com/dist/jobs/ebay-software-development-engineer-2/</loc>
-    <lastmod>2026-02-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://studenttechprojects.com/dist/jobs/ey-interns/</loc>
-    <lastmod>2026-02-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://studenttechprojects.com/dist/jobs/firstsource-customer-service-associate-voice/</loc>
-    <lastmod>2026-02-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://studenttechprojects.com/dist/jobs/flipkart-fullstack-2024/</loc>
-    <lastmod>2026-02-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://studenttechprojects.com/dist/jobs/flipkart-seller-support-walkin-lucknow-2026/</loc>
-    <lastmod>2026-02-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://studenttechprojects.com/dist/jobs/forest-research-institute-recruitment-2026/</loc>
-    <lastmod>2026-02-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://studenttechprojects.com/dist/jobs/hpcl-graduate-apprentice-trainees-2026/</loc>
-    <lastmod>2026-02-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://studenttechprojects.com/dist/jobs/ibm-intern-61767/</loc>
-    <lastmod>2026-02-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://studenttechprojects.com/dist/jobs/indian-bank-sportsperson-recruitment-2026/</loc>
-    <lastmod>2026-02-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://studenttechprojects.com/dist/jobs/infineon-specialist-it/</loc>
-    <lastmod>2026-02-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://studenttechprojects.com/dist/jobs/infosys-process-executive-walkin-jaipur-2026/</loc>
-    <lastmod>2026-02-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://studenttechprojects.com/dist/jobs/micro1-junior-ai-engineer/</loc>
-    <lastmod>2026-02-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://studenttechprojects.com/dist/jobs/microsoft-software-engineer-intern-2027-2028/</loc>
-    <lastmod>2026-02-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://studenttechprojects.com/dist/jobs/milliman-trainee-software-engineer/</loc>
-    <lastmod>2026-02-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://studenttechprojects.com/dist/jobs/nec-bilingual-software-engineer-fresher/</loc>
-    <lastmod>2026-02-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://studenttechprojects.com/dist/jobs/nestle-sales-officer-mumbai/</loc>
-    <lastmod>2026-02-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://studenttechprojects.com/dist/jobs/netflix-devops-2024/</loc>
-    <lastmod>2026-02-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://studenttechprojects.com/dist/jobs/nike-retail-department-manager/</loc>
-    <lastmod>2026-02-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://studenttechprojects.com/dist/jobs/prophecy-intern/</loc>
-    <lastmod>2026-02-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://studenttechprojects.com/dist/jobs/rbi-assistant-recruitment-2026/</loc>
-    <lastmod>2026-02-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://studenttechprojects.com/dist/jobs/sasken-engineer/</loc>
-    <lastmod>2026-02-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://studenttechprojects.com/dist/jobs/sbi-cbo-recruitment-2026/</loc>
-    <lastmod>2026-02-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://studenttechprojects.com/dist/jobs/sutherland-voice-process-executive-walkin-2026/</loc>
-    <lastmod>2026-02-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://studenttechprojects.com/dist/jobs/tcs-nqt-2026/</loc>
-    <lastmod>2026-02-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://studenttechprojects.com/dist/jobs/tcs-technical-support-walkin-indore-2026/</loc>
-    <lastmod>2026-02-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://studenttechprojects.com/dist/jobs/tech-mahindra-customer-support-executive/</loc>
-    <lastmod>2026-02-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://studenttechprojects.com/dist/jobs/wipro-business-information-security-officer/</loc>
-    <lastmod>2026-02-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://studenttechprojects.com/dist/jobs/yantra-india-trade-apprentice-2026/</loc>
-    <lastmod>2026-02-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://studenttechprojects.com/dist/jobs/zebra-software-engineer/</loc>
-    <lastmod>2026-02-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://studenttechprojects.com/dist/opportunities/</loc>
-    <lastmod>2026-02-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://studenttechprojects.com/dist/projects/</loc>
-    <lastmod>2026-02-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://studenttechprojects.com/dist/projects/aws-cloud-project/</loc>
-    <lastmod>2026-02-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://studenttechprojects.com/hackathons/</loc>
     <lastmod>2026-02-23</lastmod>
     <changefreq>weekly</changefreq>
@@ -349,44 +43,38 @@
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://studenttechprojects.com/opportunities/</loc>
+    <loc>https://studenttechprojects.com/opportunity.html?category=hackathons&amp;slug=microsoft-data-hackathon</loc>
     <lastmod>2026-02-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://studenttechprojects.com/opportunity.html?category=hackathons&amp;slug=microsoft-data-hackathon</loc>
-    <lastmod>2026-02-20</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://studenttechprojects.com/opportunity.html?category=hackathons&amp;slug=polygon-blockchain-hackathon</loc>
-    <lastmod>2026-02-20</lastmod>
+    <lastmod>2026-02-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://studenttechprojects.com/opportunity.html?category=hackathons&amp;slug=smart-india-hackathon-2024</loc>
-    <lastmod>2026-02-20</lastmod>
+    <lastmod>2026-02-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://studenttechprojects.com/opportunity.html?category=internships&amp;slug=apple-ios-intern-2024</loc>
-    <lastmod>2026-02-20</lastmod>
+    <lastmod>2026-02-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://studenttechprojects.com/opportunity.html?category=internships&amp;slug=google-frontend-intern-2024</loc>
-    <lastmod>2026-02-20</lastmod>
+    <lastmod>2026-02-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://studenttechprojects.com/opportunity.html?category=internships&amp;slug=intel-ml-intern-2024</loc>
-    <lastmod>2026-02-20</lastmod>
+    <lastmod>2026-02-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -398,7 +86,7 @@
   </url>
   <url>
     <loc>https://studenttechprojects.com/opportunity.html?category=jobs&amp;slug=amazon-sde-2024</loc>
-    <lastmod>2026-02-20</lastmod>
+    <lastmod>2026-02-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -422,7 +110,7 @@
   </url>
   <url>
     <loc>https://studenttechprojects.com/opportunity.html?category=jobs&amp;slug=cisco-software-engineer-2026</loc>
-    <lastmod>2026-02-20</lastmod>
+    <lastmod>2026-02-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -464,7 +152,7 @@
   </url>
   <url>
     <loc>https://studenttechprojects.com/opportunity.html?category=jobs&amp;slug=flipkart-fullstack-2024</loc>
-    <lastmod>2026-02-20</lastmod>
+    <lastmod>2026-02-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -542,7 +230,7 @@
   </url>
   <url>
     <loc>https://studenttechprojects.com/opportunity.html?category=jobs&amp;slug=netflix-devops-2024</loc>
-    <lastmod>2026-02-20</lastmod>
+    <lastmod>2026-02-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
