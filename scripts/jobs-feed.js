@@ -5,11 +5,11 @@ const DATA_FILES = {
     projects: '/data/projects.json'
 };
 
-const TYPE_TO_PATH = {
-    job: '/jobs/',
-    internship: '/internships/',
-    hackathon: '/hackathons/',
-    project: '/projects/'
+const TYPE_TO_CATEGORY = {
+    job: 'jobs',
+    internship: 'internships',
+    hackathon: 'hackathons',
+    project: 'projects'
 };
 
 const PAGE_TO_TYPE = {
@@ -18,11 +18,24 @@ const PAGE_TO_TYPE = {
     hackathons: 'hackathon',
     projects: 'project'
 };
-const detailPathCache = new Map();
+const HOME_SECTION_LIMIT = 9;
+
+function updateCategoryCounts(counts) {
+    const jobsEl = document.getElementById('count-jobs');
+    const internshipsEl = document.getElementById('count-internships');
+    const hackathonsEl = document.getElementById('count-hackathons');
+    const projectsEl = document.getElementById('count-projects');
+
+    if (jobsEl) jobsEl.textContent = String(counts.jobs || 0);
+    if (internshipsEl) internshipsEl.textContent = String(counts.internships || 0);
+    if (hackathonsEl) hackathonsEl.textContent = String(counts.hackathons || 0);
+    if (projectsEl) projectsEl.textContent = String(counts.projects || 0);
+}
 
 function getCurrentPage() {
     const path = window.location.pathname;
     if (path === '/' || path === '/index.html') return 'home';
+    if (path.includes('/opportunities/')) return 'opportunities';
     if (path.includes('/internships/')) return 'internships';
     if (path.includes('/hackathons/')) return 'hackathons';
     if (path.includes('/projects/')) return 'projects';
@@ -49,77 +62,107 @@ function escapeHtml(value) {
 }
 
 function getDetailPath(item, currentPage) {
-    if (item && item.url) return item.url;
-    if (currentPage !== 'home') {
-        return `/${currentPage}/${item.slug}.html`;
-    }
-    const base = TYPE_TO_PATH[item.type] || '/jobs/';
-    return `${base}${item.slug}.html`;
-}
-
-async function pathExists(path) {
-    if (detailPathCache.has(path)) return detailPathCache.get(path);
-
-    try {
-        let response = await fetch(path, { method: 'HEAD', cache: 'no-store' });
-        if (response.status === 405) {
-            response = await fetch(path, { method: 'GET', cache: 'no-store' });
-        }
-        const exists = response.ok;
-        detailPathCache.set(path, exists);
-        return exists;
-    } catch {
-        detailPathCache.set(path, false);
-        return false;
-    }
+    const pageCategory = PAGE_TO_TYPE[currentPage] ? currentPage : null;
+    const category = pageCategory || TYPE_TO_CATEGORY[item.type] || 'jobs';
+    return `/opportunity.html?category=${encodeURIComponent(category)}&slug=${encodeURIComponent(item.slug || '')}`;
 }
 
 async function resolveDetailPath(item, currentPage) {
-    if (item && item.url) return item.url;
-    const primaryPath = getDetailPath(item, currentPage);
-    const fallbackPath = `/jobs/${item.slug}.html`;
-
-    if (primaryPath === fallbackPath) return primaryPath;
-    if (await pathExists(primaryPath)) return primaryPath;
-    return fallbackPath;
+    return getDetailPath(item, currentPage);
 }
 
-async function displayItems(items, currentPage) {
-    const feedContainer = document.getElementById('jobs-feed');
+function sortByPostedDateDesc(items) {
+    return items.slice().sort((a, b) => new Date(b.postedDate || 0) - new Date(a.postedDate || 0));
+}
+
+async function buildCards(list, currentPage, latestJobDate) {
+    return await Promise.all(list.map(async item => {
+        const href = await resolveDetailPath(item, currentPage);
+        const isProject = item && item.type === 'project';
+        const isLatestJob = currentPage === 'home'
+            && item.type === 'job'
+            && latestJobDate
+            && item.postedDate === latestJobDate;
+        const newBadge = isLatestJob
+            ? '<span class="absolute top-4 right-4 text-[11px] font-bold tracking-wide px-2 py-1 rounded-full bg-red-100 text-red-700 border border-red-200">NEW</span>'
+            : '';
+        const hasExperience = item && item.experience && !/^not specified$/i.test(String(item.experience).trim());
+        const experienceLine = hasExperience
+            ? `<p class="text-gray-500 text-sm mb-2">Experience: ${escapeHtml(item.experience)}</p>`
+            : '';
+        const projectMeta = isProject
+            ? `
+            <div class="flex flex-wrap gap-2 mb-3">
+                <span class="text-xs font-semibold px-2 py-1 rounded-full bg-blue-100 text-blue-700">Project</span>
+                <span class="text-xs px-2 py-1 rounded-full bg-gray-100 text-gray-700">${escapeHtml(item.duration || '8-12 weeks')}</span>
+                <span class="text-xs px-2 py-1 rounded-full bg-amber-100 text-amber-700">${escapeHtml(item.difficulty || 'Intermediate')}</span>
+                <span class="text-xs px-2 py-1 rounded-full bg-emerald-100 text-emerald-700">${escapeHtml(item.teamSize || '2-4 members')}</span>
+            </div>
+            `
+            : '';
+        const ctaLabel = isProject ? 'View Details' : 'View Details & Apply';
+        const cta = `
+            <div class="mt-auto pt-4 flex justify-center">
+                <a href="${escapeHtml(href)}" class="inline-block bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition font-medium">${ctaLabel}</a>
+            </div>`;
+        return `
+        <article class="relative bg-white rounded-lg shadow-md hover:shadow-lg transition p-6 flex flex-col h-full">
+            ${newBadge}
+            <h3 class="text-xl font-semibold mb-2">
+                <a href="${escapeHtml(href)}" class="hover:text-blue-700">${escapeHtml(item.title || 'Untitled')}</a>
+            </h3>
+            <p class="text-gray-600 mb-2">${escapeHtml(item.company || 'Unknown')}</p>
+            <p class="text-gray-500 text-sm mb-4">${escapeHtml(item.location || 'Not specified')} • ${escapeHtml(item.postedDate || '')}</p>
+            ${projectMeta}
+            ${experienceLine}
+            <p class="text-gray-700 mb-4 line-clamp-3">${escapeHtml(item.excerpt || '')}</p>
+            ${cta}
+        </article>
+    `;
+    }));
+}
+
+async function renderSection(containerId, list, currentPage, latestJobDate) {
+    const feedContainer = document.getElementById(containerId);
     if (!feedContainer) return;
-
-    let list = items.slice();
-
-    if (currentPage !== 'home') {
-        const expectedType = PAGE_TO_TYPE[currentPage];
-        list = list.filter(item => item.type === expectedType);
-    }
-
-    list.sort((a, b) => new Date(b.postedDate || 0) - new Date(a.postedDate || 0));
-
-    if (currentPage === 'home') {
-        list = list.slice(0, 6);
-    }
 
     if (!list.length) {
         feedContainer.innerHTML = '<p class="text-gray-500 col-span-full text-center py-8">No opportunities found. Check back later!</p>';
         return;
     }
 
-    const cards = await Promise.all(list.map(async item => {
-        const href = await resolveDetailPath(item, currentPage);
-        return `
-        <a href="${escapeHtml(href)}" class="bg-white rounded-lg shadow-md hover:shadow-lg transition p-6">
-            <h3 class="text-xl font-semibold mb-2">${escapeHtml(item.title || 'Untitled')}</h3>
-            <p class="text-gray-600 mb-2">${escapeHtml(item.company || 'Unknown')}</p>
-            <p class="text-gray-500 text-sm mb-4">${escapeHtml(item.location || 'Not specified')} • ${escapeHtml(item.postedDate || '')}</p>
-            <p class="text-gray-700 mb-4 line-clamp-3">${escapeHtml(item.excerpt || '')}</p>
-            <span class="text-blue-600 font-medium">Read More →</span>
-        </a>
-    `;
-    }));
-
+    const cards = await buildCards(list, currentPage, latestJobDate);
     feedContainer.innerHTML = cards.join('');
+}
+
+async function displayItems(items, currentPage) {
+    if (currentPage === 'home') {
+        const jobs = sortByPostedDateDesc(items.filter(item => item.type === 'job'));
+        const internships = sortByPostedDateDesc(items.filter(item => item.type === 'internship'));
+        const hackathons = sortByPostedDateDesc(items.filter(item => item.type === 'hackathon'));
+        const projects = sortByPostedDateDesc(items.filter(item => item.type === 'project'));
+        const all = sortByPostedDateDesc(items);
+        const latestJobDate = jobs.length ? jobs[0].postedDate : null;
+
+        await Promise.all([
+            renderSection('jobs-feed', all.slice(0, HOME_SECTION_LIMIT), currentPage, latestJobDate),
+            renderSection('jobs-feed-jobs', jobs.slice(0, HOME_SECTION_LIMIT), currentPage, latestJobDate),
+            renderSection('jobs-feed-internships', internships.slice(0, HOME_SECTION_LIMIT), currentPage, latestJobDate),
+            renderSection('jobs-feed-hackathons', hackathons.slice(0, HOME_SECTION_LIMIT), currentPage, latestJobDate),
+            renderSection('jobs-feed-projects', projects.slice(0, HOME_SECTION_LIMIT), currentPage, latestJobDate)
+        ]);
+        return;
+    }
+
+    if (currentPage === 'opportunities') {
+        const all = sortByPostedDateDesc(items);
+        await renderSection('jobs-feed', all, currentPage, null);
+        return;
+    }
+
+    const expectedType = PAGE_TO_TYPE[currentPage];
+    const list = sortByPostedDateDesc(items.filter(item => item.type === expectedType));
+    await renderSection('jobs-feed', list, currentPage, null);
 }
 
 function fallbackItems(currentPage) {
@@ -179,8 +222,9 @@ async function loadFeed() {
 
     try {
         let items = [];
+        let categoryCounts = null;
 
-        if (currentPage === 'home') {
+        if (currentPage === 'home' || currentPage === 'opportunities') {
             const results = await Promise.allSettled([
                 fetchJson(DATA_FILES.jobs),
                 fetchJson(DATA_FILES.internships),
@@ -188,16 +232,40 @@ async function loadFeed() {
                 fetchJson(DATA_FILES.projects)
             ]);
 
-            items = results
-                .filter(result => result.status === 'fulfilled')
-                .flatMap(result => result.value);
+            const jobsData = results[0].status === 'fulfilled' ? results[0].value : [];
+            const internshipsData = results[1].status === 'fulfilled' ? results[1].value : [];
+            const hackathonsData = results[2].status === 'fulfilled' ? results[2].value : [];
+            const projectsData = results[3].status === 'fulfilled' ? results[3].value : [];
+
+            categoryCounts = {
+                jobs: jobsData.length,
+                internships: internshipsData.length,
+                hackathons: hackathonsData.length,
+                projects: projectsData.length
+            };
+
+            items = [
+                ...jobsData,
+                ...internshipsData,
+                ...hackathonsData,
+                ...projectsData
+            ];
         } else {
             items = await fetchJson(DATA_FILES[currentPage]);
         }
 
+        if (categoryCounts && currentPage === 'home') updateCategoryCounts(categoryCounts);
         await displayItems(items, currentPage);
     } catch (error) {
         console.warn('Feed fallback activated:', error && error.message ? error.message : error);
+        if (currentPage === 'home') {
+            updateCategoryCounts({
+                jobs: 0,
+                internships: 0,
+                hackathons: 0,
+                projects: 0
+            });
+        }
         await displayItems(fallbackItems(currentPage), currentPage);
     }
 }
