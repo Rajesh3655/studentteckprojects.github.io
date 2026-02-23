@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="Trainee Software Engineer at Milliman">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#3f1d2e"/>
+      <stop offset="100%" stop-color="#be185d"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect x="70" y="70" width="260" height="260" rx="28" fill="#ffffff" fill-opacity="0.98"/>
+  <image x="95" y="95" width="210" height="210" preserveAspectRatio="xMidYMid meet" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAG1BMVEUiKzb09PSztrnIycwuN0HAwsUpMj0tNUCcoKSXQl1ZAAAAcUlEQVRIie3ROxaAIAxEUQL42f+KRaGJZIBplIJXzjm3SZxbTZXX7WXdSr4GogqvtQsksiBEEmTBgEdQ4BYcSIIEEkaAt2sAtebrWgEgUCAABQRIYABEA9iiBRI5SCAnC4YfNwdQDQC7Bb4CnSqw+rULQMIEVuiomQYAAAAASUVORK5CYII="/>
+  <text x="380" y="240" fill="#ffffff" font-size="50" font-family="Segoe UI, Arial, sans-serif" font-weight="700">Trainee Software Engineer</text>
+  <text x="380" y="315" fill="#dbeafe" font-size="38" font-family="Segoe UI, Arial, sans-serif">Milliman</text>
+  <text x="380" y="390" fill="#bfdbfe" font-size="26" font-family="Segoe UI, Arial, sans-serif">StudentTechProjects</text>
+</svg>

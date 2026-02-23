@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="DRDO NSTL Walk-in Interview 2026 - Junior Research Fellow at DRDO NSTL">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0b3b2e"/>
+      <stop offset="100%" stop-color="#0f766e"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect x="70" y="70" width="260" height="260" rx="28" fill="#ffffff" fill-opacity="0.98"/>
+  <image x="95" y="95" width="210" height="210" preserveAspectRatio="xMidYMid meet" href="data:image/png;base64,AAABAAEAEBAAAAEAIABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAAAQAABILAAASCwAAAAAAAAAAAAAAAAAAAAAAAP///wD///8H////SP///6b7+fji+fb0+vn29Pr7+fji/v7+pv///0j///8H////AAAAAAAAAAAA////AP///wD///8Y////ke/o4+7NtKH/zbGd/7SJaf+odVD/zrSg/9C4pv/t5d7u/v7+kf///xj///8A////AP///wD///8Y/f38r+ba0v66lHj/iEYT/66Jb/+cdFf/jl87/7KRev+OTx//qXhU/+TWzP79/Puv////GP///wD///8G////kdnGuP+ibUX/s5F6/5V7aP+lnZn/sa+v/6+trf+gmpf/kHVi/6qFbP+yhmf/1b6u/////5H///8G////SO7n4eycZTr/gkQV/5aHfv+kpqn/qrS2/67Awv+twcL/qrS2/6errf+bkIr/hk4j/5hdL//r4dns////SP///6fIq5X/gz4J/5t/af/GyMr/o7G8/63K0f+twcT/qLq9/7LR1v+mtsH/w8XH/6CIdv+CPgn/xKKJ/////6f59/bjqHhT/4FFF/+zrbj/x9Pa/7PT4/95i8L/lpOm/5mSoP96i8D/rMrf/8bT2f+5tcT/gkof/6RwSP/49PLj8u3o+qNvR/+MXjv/zs3U/8HX3P/O8+//p7Oz/4+Sp/+OkKX/oKms/8zv6//B2t3/0NDZ/45kRP+ha0P/8enk+vLs5/qdZTn/iVs3/9nY2P+/zsf/tKRs/62SWP+eoqT/nqar/62TXP+zoGT/u8m//9vc3f+NYkL/m2E2//Hp4/r39PLipHFK/4JKHv+yrqz/sbm1/8HWyP/B4en/tNXa/6/P0//B4uv/wtnM/7S9tv+4trb/hFAn/6BpP//28e3j////p8Cehf+CPgr/k31u/7C0t/+71Nf/0fv9/6zP0P+kxcb/0vz+/73Z3P+0ubz/lYN3/4E/C/+7lXj/////p////0jm2tLslFco/4JKH/+elY//sre5/7nLzP+xycv/scnK/7jKzP+wtbj/oZuX/4RQKP+QUSD/4tPI7P///0j///8G/v//kcuwnP+XXC//q4x2/5+Phf+rqKf/t7m7/7O1t/+pqKj/mYqA/6qLd/+ibUf/xqeQ//39/ZH///8G////AP///xj59vWv2se6/riPcv+GRxb/pIJq/5x9Z/+WdFv/qo15/4dJGf+qelb/2MO2/vf08a////8Y////AP///wD///8A////GPz7+5Dh08juupR4/8mrlf+lckv/mmE1/8amj/+8l3z/3s3A7vv5+JH///8Y////AP///wAAAAAAAAAAAP///wD///8H////SPz7+6bx6+fi6N3V+ujc0/rw6uXi+/r5pv///0j///8H////AAAAAAAAAAAA4AcAAMADAACAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIABAADAAwAA4AcAAA=="/>
+  <text x="380" y="240" fill="#ffffff" font-size="50" font-family="Segoe UI, Arial, sans-serif" font-weight="700">DRDO NSTL Walk-in Interview 2026 - Junior Research Fellow</text>
+  <text x="380" y="315" fill="#dbeafe" font-size="38" font-family="Segoe UI, Arial, sans-serif">DRDO NSTL</text>
+  <text x="380" y="390" fill="#bfdbfe" font-size="26" font-family="Segoe UI, Arial, sans-serif">StudentTechProjects</text>
+</svg>

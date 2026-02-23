@@ -1,0 +1,22 @@
+{
+  "intro": "Milliman is hiring Trainee Software Engineer.",
+  "lastDate": "Not specified",
+  "jobDescription": "Entry-level software engineering role focused on product development and technology support.",
+  "responsibilities": [
+    "Review the official notification and role expectations carefully.",
+    "Prepare resume and required documents before applying.",
+    "Complete application within deadline and track further updates."
+  ],
+  "minQualifications": [
+    "Bachelor's degree in relevant stream",
+    "Communication and problem-solving skills.",
+    "Any additional requirements mentioned in the official listing."
+  ],
+  "prefQualifications": [
+    "Relevant project, internship, or domain exposure."
+  ],
+  "howToApply": "Use the official Milliman application link and complete your submission.",
+  "author": "StudentTechProjects Team",
+  "image": "/images/opportunities/milliman-trainee-software-engineer.svg",
+  "imageAlt": "Trainee Software Engineer at Milliman"
+}

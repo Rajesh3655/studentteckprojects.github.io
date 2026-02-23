@@ -1,0 +1,22 @@
+{
+  "intro": "AXA is hiring for Technical Lead position.",
+  "lastDate": "Not specified",
+  "jobDescription": "Technical leadership role focusing on architecture, delivery quality, and team collaboration.",
+  "responsibilities": [
+    "Review the official notification and role expectations carefully.",
+    "Prepare resume and required documents before applying.",
+    "Complete application within deadline and track further updates."
+  ],
+  "minQualifications": [
+    "Relevant engineering degree",
+    "Communication and problem-solving skills.",
+    "Any additional requirements mentioned in the official listing."
+  ],
+  "prefQualifications": [
+    "Relevant project, internship, or domain exposure."
+  ],
+  "howToApply": "Apply from the official AXA careers job page.",
+  "author": "StudentTechProjects Team",
+  "image": "/images/opportunities/axa-technical-lead.svg",
+  "imageAlt": "Technical Lead at AXA"
+}

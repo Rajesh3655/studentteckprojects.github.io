@@ -49,6 +49,7 @@ function escapeHtml(value) {
 }
 
 function getDetailPath(item, currentPage) {
+    if (item && item.url) return item.url;
     if (currentPage !== 'home') {
         return `/${currentPage}/${item.slug}.html`;
     }
@@ -74,6 +75,7 @@ async function pathExists(path) {
 }
 
 async function resolveDetailPath(item, currentPage) {
+    if (item && item.url) return item.url;
     const primaryPath = getDetailPath(item, currentPage);
     const fallbackPath = `/jobs/${item.slug}.html`;
 

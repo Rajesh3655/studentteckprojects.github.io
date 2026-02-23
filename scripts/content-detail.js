@@ -37,6 +37,11 @@
         return `/images/opportunities/${category}-default.svg`;
     }
 
+    function normalizedPathname() {
+        const path = window.location.pathname || '/';
+        return path.endsWith('/') ? path : path;
+    }
+
     async function fetchJson(url) {
         const res = await fetch(url);
         if (!res.ok) throw new Error('Failed to load ' + url);
@@ -80,6 +85,59 @@
         return Number.isNaN(d.getTime()) ? value : d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
     }
 
+    function toIsoDate(value) {
+        const text = String(value || '').trim();
+        if (!text || /^(asap|tbd|n\/a|na|not specified)$/i.test(text)) return null;
+        if (/^\d{4}-\d{2}-\d{2}$/.test(text)) return text;
+        const d = new Date(text);
+        if (Number.isNaN(d.getTime())) return null;
+        return d.toISOString().slice(0, 10);
+    }
+
+    function parseBaseSalary(value) {
+        const text = String(value || '').trim();
+        if (!text) return null;
+
+        const amountMatch = text.match(/(\d+(?:\.\d+)?)(?:\s*[-to]+\s*(\d+(?:\.\d+)?))?/i);
+        if (!amountMatch) return null;
+
+        const currency = /₹|inr/i.test(text) ? 'INR' : /\$/i.test(text) ? 'USD' : null;
+        if (!currency) return null;
+
+        const minRaw = Number(amountMatch[1]);
+        const maxRaw = Number(amountMatch[2] || amountMatch[1]);
+        if (!Number.isFinite(minRaw) || !Number.isFinite(maxRaw)) return null;
+
+        let multiplier = 1;
+        if (/lakh|lakhs|lac|lpa/i.test(text)) multiplier = 100000;
+        if (/crore|crores|cr/i.test(text)) multiplier = 10000000;
+        if (/k\b/i.test(text)) multiplier = 1000;
+
+        return {
+            '@type': 'MonetaryAmount',
+            currency: currency,
+            value: {
+                '@type': 'QuantitativeValue',
+                minValue: Math.round(Math.min(minRaw, maxRaw) * multiplier),
+                maxValue: Math.round(Math.max(minRaw, maxRaw) * multiplier),
+                unitText: /month/i.test(text) ? 'MONTH' : 'YEAR'
+            }
+        };
+    }
+
+    function parseLocation(value) {
+        const text = String(value || '').trim();
+        if (!text) return { remote: false, locality: null, region: null, country: 'IN' };
+        const remote = /remote/i.test(text);
+        const parts = text.split(',').map(function (v) { return v.trim(); }).filter(Boolean);
+        return {
+            remote: remote,
+            locality: parts[0] || text,
+            region: parts.length > 1 ? parts[1] : null,
+            country: /india|in\b/i.test(text) ? 'IN' : 'IN'
+        };
+    }
+
     async function render() {
         const slug = fileSlugFromPath();
         const category = categoryFromPath();
@@ -102,7 +160,7 @@
         const data = Object.assign({}, base, details);
         const pageTitle = `${data.title} | StudentTechProjects`;
         const description = data.excerpt || data.intro || `${data.title} opportunity for students.`;
-        const canonical = `https://studenttechprojects.com/${category}/${slug}.html`;
+        const canonical = `https://studenttechprojects.com${normalizedPathname()}`;
         const imagePath = data.image || `/images/opportunities/${slug}.svg`;
         const imageAlt = data.imageAlt || `${data.title || 'Opportunity'} - ${data.company || 'StudentTechProjects'}`;
         const imageAbsolute = `https://studenttechprojects.com${imagePath}`;
@@ -233,7 +291,7 @@
                 <h2 class="text-2xl font-bold mb-4">Related Opportunities</h2>
                 <div class="grid md:grid-cols-2 gap-4 mb-4">
                     ${related.map(item => `
-                    <a href="/${category}/${item.slug}.html" class="block bg-gray-50 border border-gray-200 rounded-lg p-4 hover:shadow-sm transition">
+                    <a href="${escapeHtml(item.url || `/${category}/${item.slug}.html`)}" class="block bg-gray-50 border border-gray-200 rounded-lg p-4 hover:shadow-sm transition">
                         <p class="font-semibold text-blue-700 mb-1">${escapeHtml(item.title || 'Opportunity')}</p>
                         <p class="text-sm text-gray-600">${escapeHtml(item.company || 'Company')} • ${escapeHtml(fmtDate(item.postedDate))}</p>
                     </a>`).join('')}
@@ -243,27 +301,47 @@
 
         document.getElementById('content-root').innerHTML = contentHtml;
 
-        const jsonLd = {
-            '@context': 'https://schema.org/',
-            '@type': 'JobPosting',
-            title: data.title || 'Opportunity',
-            description: data.jobDescription || data.excerpt || '',
-            image: imageAbsolute,
-            datePosted: data.postedDate || new Date().toISOString().split('T')[0],
-            validThrough: data.lastDate || undefined,
-            employmentType: 'FULL_TIME',
-            hiringOrganization: {
-                '@type': 'Organization',
-                name: data.company || 'Company'
-            },
-            jobLocation: {
-                '@type': 'Place',
-                address: {
-                    '@type': 'PostalAddress',
-                    addressLocality: data.location || 'Location'
-                }
+        const locationData = parseLocation(data.location);
+        const jsonLd = category === 'jobs'
+            ? {
+                '@context': 'https://schema.org/',
+                '@type': 'JobPosting',
+                title: data.title || 'Opportunity',
+                description: data.jobDescription || data.excerpt || '',
+                image: imageAbsolute,
+                datePosted: toIsoDate(data.postedDate) || new Date().toISOString().slice(0, 10),
+                validThrough: toIsoDate(data.lastDate) || undefined,
+                employmentType: 'FULL_TIME',
+                baseSalary: parseBaseSalary(data.salary) || undefined,
+                hiringOrganization: {
+                    '@type': 'Organization',
+                    name: data.company || 'Company',
+                    sameAs: data.applyLink || undefined
+                },
+                applicantLocationRequirements: {
+                    '@type': 'Country',
+                    name: locationData.country
+                },
+                jobLocationType: locationData.remote ? 'TELECOMMUTE' : undefined,
+                jobLocation: locationData.remote
+                    ? undefined
+                    : {
+                        '@type': 'Place',
+                        address: {
+                            '@type': 'PostalAddress',
+                            addressLocality: locationData.locality || 'Bengaluru',
+                            addressRegion: locationData.region || undefined,
+                            addressCountry: locationData.country
+                        }
+                    }
             }
-        };
+            : {
+                '@context': 'https://schema.org/',
+                '@type': 'WebPage',
+                name: data.title || 'Opportunity',
+                description: description,
+                url: canonical
+            };
         const schemaEl = document.getElementById('job-schema');
         if (schemaEl) schemaEl.textContent = JSON.stringify(jsonLd);
     }

@@ -1,0 +1,22 @@
+{
+  "intro": "Zebra is hiring Software Engineer role.",
+  "lastDate": "Not specified",
+  "jobDescription": "Software engineering role for building enterprise and product technology solutions.",
+  "responsibilities": [
+    "Review the official notification and role expectations carefully.",
+    "Prepare resume and required documents before applying.",
+    "Complete application within deadline and track further updates."
+  ],
+  "minQualifications": [
+    "Bachelor's degree in computer science or related field",
+    "Communication and problem-solving skills.",
+    "Any additional requirements mentioned in the official listing."
+  ],
+  "prefQualifications": [
+    "Relevant project, internship, or domain exposure."
+  ],
+  "howToApply": "Apply through Zebra careers portal link.",
+  "author": "StudentTechProjects Team",
+  "image": "/images/opportunities/zebra-software-engineer.svg",
+  "imageAlt": "Software Engineer at Zebra"
+}

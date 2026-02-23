@@ -1,0 +1,22 @@
+{
+  "intro": "Prophecy is hiring interns.",
+  "lastDate": "Not specified",
+  "jobDescription": "Internship opening for candidates interested in data and software product work.",
+  "responsibilities": [
+    "Review the official notification and role expectations carefully.",
+    "Prepare resume and required documents before applying.",
+    "Complete application within deadline and track further updates."
+  ],
+  "minQualifications": [
+    "Relevant student profile",
+    "Communication and problem-solving skills.",
+    "Any additional requirements mentioned in the official listing."
+  ],
+  "prefQualifications": [
+    "Relevant project, internship, or domain exposure."
+  ],
+  "howToApply": "Apply through the official Greenhouse job board link.",
+  "author": "StudentTechProjects Team",
+  "image": "/images/opportunities/prophecy-intern.svg",
+  "imageAlt": "Intern at Prophecy"
+}

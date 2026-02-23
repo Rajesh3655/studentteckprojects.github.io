@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="HPCL Graduate Apprentice Trainees Recruitment 2026 at Hindustan Petroleum Corporation Limited (HPCL)">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#3f1d2e"/>
+      <stop offset="100%" stop-color="#be185d"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect x="70" y="70" width="260" height="260" rx="28" fill="#ffffff" fill-opacity="0.98"/>
+  <image x="95" y="95" width="210" height="210" preserveAspectRatio="xMidYMid meet" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAADsElEQVQ4jTXT209TdwDA8e/vnJ72tBRaQgtUkMtAYNQrDrwwTUBxwy3bsrlN8cGYZZnTZImb8WnJEvXJlyX6MB+2abIBbmo0bmQ3JoMUkCWMi3JbJlixgBSh2Jb2lPacvWyf/+Ej+I9uGAiw/j05Vzc0FjgcXIzuXEmlPBhglaXZrMy0ng1lnmZveV7HalKPmRUZAGEYBrPzy2Rnpef91D50eiqw2ORZk+UqL8klw2EDwyAS0Zh4MMf0dHChIMfZsn/fxvOzc6FAUYEbEdNWUc2mvNabfRdWQuE3GrKR8jOtCJcLfXYGKcsFyyGMuMassPJLIKHLZtOtpgO1H0Wi8YB87uwZ64/tQ58thaJH3n2tWnJ88yWJG9fB4SR+9gzY0ohfvEDK/xBbZzuVr+8VI8tGxUN/UKnaUNgpTU0v1D/wBw+9XL9BpDvtiLIyjEgEfXQUYTYjb92KSLOBopCKa9gUif0Nm8XjudChobHH9abB+9NNhfkud74nEwAjoSHMZoTbBYYBmoaRTCK7s7EcO460pYocWabkuRz34FigSXo4F9qRnmEjHNXQ4xr4H4HTiXBmgkUlNTAAsgmRnY1cU40uJMJRjYwMG8Gn4R3ixLnr8V97Jix5bgfV3nzersqjqsKDZLViRKMIVYWEhqGq3JuP8/3Pg/QO+wkEn7F7S7EmPv/q97hvYMqyHEvgn1lCAo4frOX9d3ZiVRUAtESSyzf6uPhtJwndoHBNJg6bhZr1BZrJZJJmnkW1YkWR2b25iGRK59JVH5q2ysfv1SMJwaWr3XzR6qN6fQGqWWbmaZhn0TgyzEgrWrI3w67iLc1lNaWz9DRMQ806brcP090/yZ/Dfq61/cWe6hIioQjx1RSVJbmk262EYole8cNvQ69MPVq4fPRgrVu1KAyPB2i51kMiqSMrJkyKRCyiocgShw5sZ4t3LcmkztffdQftdvWo9OrejXcikVhrh2/MkCWJKu9aTp1oJCfLzlJ4hfmFMLmuND75cB81m4pQTDJ/dI8bT54stR55a/sd+YVdbyYr1nnudfpGi1PJVHlBvks40q0oFoXFxSjpNjN1L1ay8fl8kimdDt+o3t41cqt2W9mnd/snF4VhGHxw6gqNezbl3e0bP11amttUu63CZbertHWNAQYv1VaQ0Fbp6ZtYGBmdbvFWFpy/2dYfuN18EvF/5ytXuygpdFvbOu7XRaKJw263Y6dFVTyKJIjGErPz86EesySa63ZVdvwzORc7eawRgH8BUU+X2FqdqeMAAAAASUVORK5CYII="/>
+  <text x="380" y="240" fill="#ffffff" font-size="50" font-family="Segoe UI, Arial, sans-serif" font-weight="700">HPCL Graduate Apprentice Trainees Recruitment 2026</text>
+  <text x="380" y="315" fill="#dbeafe" font-size="38" font-family="Segoe UI, Arial, sans-serif">Hindustan Petroleum Corporation Limited (HPCL)</text>
+  <text x="380" y="390" fill="#bfdbfe" font-size="26" font-family="Segoe UI, Arial, sans-serif">StudentTechProjects</text>
+</svg>
