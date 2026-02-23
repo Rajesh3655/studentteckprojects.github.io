@@ -46,14 +46,25 @@ function buildPages() {
         const outDir = path.join(ROOT, category);
         ensureDir(outDir);
 
+        const expected = new Set(['index.html']);
         list.forEach((item) => {
             if (!item || typeof item.slug !== 'string' || !item.slug.trim()) return;
             const slug = item.slug.trim();
+            expected.add(`${slug}.html`);
             const outFile = path.join(outDir, `${slug}.html`);
             const canonicalPath = `/${category}/${slug}.html`;
             fs.writeFileSync(outFile, withCanonical(template, canonicalPath), 'utf8');
             total += 1;
         });
+
+        // Remove stale generated files that are no longer present in JSON data.
+        fs.readdirSync(outDir, { withFileTypes: true })
+            .filter((entry) => entry.isFile() && /\.html$/i.test(entry.name))
+            .forEach((entry) => {
+                if (!expected.has(entry.name)) {
+                    fs.unlinkSync(path.join(outDir, entry.name));
+                }
+            });
     });
 
     console.log(`Generated ${total} detail HTML files from JSON.`);
