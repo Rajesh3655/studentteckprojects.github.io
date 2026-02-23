@@ -62,8 +62,44 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Add active class to current navigation item
     const currentPath = normalizePath(window.location.pathname);
+
+    function injectOpportunitiesLink() {
+        const desktopNav = document.querySelector('nav .hidden.md\\:flex');
+        if (desktopNav && !desktopNav.querySelector('a[href="/opportunities/"]')) {
+            const jobsLink = desktopNav.querySelector('a[href="/jobs/"]');
+            const link = document.createElement('a');
+            link.href = '/opportunities/';
+            link.className = 'text-gray-700 hover:text-blue-600 transition';
+            link.textContent = 'Opportunities';
+            if (jobsLink && jobsLink.nextSibling) {
+                desktopNav.insertBefore(link, jobsLink.nextSibling);
+            } else if (jobsLink) {
+                desktopNav.appendChild(link);
+            } else {
+                desktopNav.prepend(link);
+            }
+        }
+
+        const mobileNav = document.getElementById('mobile-menu');
+        if (mobileNav && !mobileNav.querySelector('a[href="/opportunities/"]')) {
+            const jobsLink = mobileNav.querySelector('a[href="/jobs/"]');
+            const link = document.createElement('a');
+            link.href = '/opportunities/';
+            link.className = 'block py-2 text-gray-700 hover:text-blue-600';
+            link.textContent = 'Opportunities';
+            if (jobsLink && jobsLink.nextSibling) {
+                mobileNav.insertBefore(link, jobsLink.nextSibling);
+            } else if (jobsLink) {
+                mobileNav.appendChild(link);
+            } else {
+                mobileNav.prepend(link);
+            }
+        }
+    }
+
+    injectOpportunitiesLink();
     const navLinks = document.querySelectorAll('nav a');
-    
+
     navLinks.forEach(link => {
         const href = link.getAttribute('href') || '';
         if (!href.startsWith('/')) return;
