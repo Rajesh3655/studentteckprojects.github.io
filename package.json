@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "build:sitemap": "node scripts/generate-sitemap.js",
-    "import:projects": "node scripts/import-project-titles.js"
+    "import:projects": "node scripts/import-project-titles.js",
+    "import:hackathons:eventbrite": "node scripts/import-hackathons-eventbrite.js"
   }
 }
