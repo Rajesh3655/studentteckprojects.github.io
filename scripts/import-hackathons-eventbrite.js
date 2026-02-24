@@ -7,6 +7,7 @@ const __dirname = path.dirname(__filename);
 const ROOT = path.resolve(__dirname, '..');
 const HACKATHONS_FILE = path.join(ROOT, 'data', 'hackathons.json');
 const EVENTBRITE_API_BASE = 'https://www.eventbriteapi.com/v3/events/search/';
+const DEVPOST_API_BASE = 'https://devpost.com/api/hackathons';
 const FETCH_PAGE_SIZE = 50;
 
 function slugify(text) {
@@ -53,7 +54,8 @@ function excerptFromDescription(value) {
 async function fetchEventbrite(query, rangeStartIso) {
   const token = process.env.EVENTBRITE_API_TOKEN;
   if (!token) {
-    throw new Error('Missing EVENTBRITE_API_TOKEN environment variable.');
+    console.log('EVENTBRITE_API_TOKEN not set. Skipping Eventbrite source.');
+    return [];
   }
 
   const events = [];
@@ -92,6 +94,16 @@ async function fetchEventbrite(query, rangeStartIso) {
   return events;
 }
 
+async function fetchDevpostOpenHackathons() {
+  const response = await fetch(`${DEVPOST_API_BASE}?status[]=open&page=1`);
+  if (!response.ok) {
+    const body = await response.text();
+    throw new Error(`Devpost API failed (${response.status}): ${body.slice(0, 300)}`);
+  }
+  const payload = await response.json();
+  return Array.isArray(payload.hackathons) ? payload.hackathons : [];
+}
+
 function formatEvent(ev) {
   const title = String(
     (ev && ev.name && (ev.name.text || ev.name.html)) || 'Hackathon Event'
@@ -128,6 +140,45 @@ function formatEvent(ev) {
   };
 }
 
+function parseDevpostStartDate(submissionPeriodDates) {
+  const text = String(submissionPeriodDates || '').trim();
+  if (!text) return new Date().toISOString().slice(0, 10);
+
+  const yearMatch = text.match(/(\d{4})\s*$/);
+  const year = yearMatch ? yearMatch[1] : String(new Date().getUTCFullYear());
+
+  // Example: "Feb 02 - Mar 16, 2026" -> "Feb 02 2026"
+  const left = text.split('-')[0].trim();
+  const candidate = `${left} ${year}`;
+  return toIsoDate(candidate);
+}
+
+function formatDevpostEvent(ev) {
+  const title = String(ev && ev.title ? ev.title : 'Hackathon Event').trim();
+  const organizer = String(ev && ev.organization_name ? ev.organization_name : 'Devpost Organizer').trim();
+  const location =
+    (ev && ev.displayed_location && ev.displayed_location.location) ||
+    'Online';
+  const prize = stripHtml((ev && ev.prize_amount) || '');
+  const timeLeft = String((ev && ev.time_left_to_submission) || '').trim();
+  const excerptParts = [
+    `${organizer} hackathon`,
+    prize ? `Prize: ${prize}` : '',
+    timeLeft ? `Deadline: ${timeLeft}` : ''
+  ].filter(Boolean);
+
+  return {
+    title,
+    company: organizer,
+    slug: slugify(`${title}-${ev && ev.id ? ev.id : 'devpost'}`),
+    type: 'hackathon',
+    location,
+    postedDate: parseDevpostStartDate(ev && ev.submission_period_dates),
+    excerpt: excerptParts.join(' | '),
+    applyLink: String((ev && ev.url) || '').trim()
+  };
+}
+
 async function main() {
   const existingRaw = fs.readFileSync(HACKATHONS_FILE, 'utf8');
   const existing = JSON.parse(existingRaw);
@@ -144,8 +195,12 @@ async function main() {
   const maxId = existing.reduce((m, item) => Math.max(m, Number(item.id) || 0), 0);
 
   const last24hDate = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString();
-  const events = await fetchEventbrite('hackathon', last24hDate);
-  const formatted = events.map(formatEvent);
+  const eventbriteEvents = await fetchEventbrite('hackathon', last24hDate);
+  const devpostEvents = await fetchDevpostOpenHackathons();
+  const formatted = [
+    ...eventbriteEvents.map(formatEvent),
+    ...devpostEvents.map(formatDevpostEvent)
+  ];
 
   let nextId = maxId;
   const newItems = [];
@@ -173,13 +228,17 @@ async function main() {
   }
 
   if (!newItems.length) {
-    console.log(`No new hackathons found from Eventbrite in the last 24 hours (${events.length} fetched).`);
+    console.log(
+      `No new hackathons found. Sources fetched: Eventbrite=${eventbriteEvents.length}, Devpost=${devpostEvents.length}.`
+    );
     return;
   }
 
   const merged = [...newItems, ...existing];
   fs.writeFileSync(HACKATHONS_FILE, `${JSON.stringify(merged, null, 2)}\n`, 'utf8');
-  console.log(`Added ${newItems.length} hackathons from Eventbrite. Total now: ${merged.length}`);
+  console.log(
+    `Added ${newItems.length} hackathons. Sources fetched: Eventbrite=${eventbriteEvents.length}, Devpost=${devpostEvents.length}. Total now: ${merged.length}`
+  );
 }
 
 main().catch(err => {
