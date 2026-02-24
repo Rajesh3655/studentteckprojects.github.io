@@ -9,6 +9,7 @@ const HACKATHONS_FILE = path.join(ROOT, 'data', 'hackathons.json');
 const EVENTBRITE_API_BASE = 'https://www.eventbriteapi.com/v3/events/search/';
 const DEVPOST_API_BASE = 'https://devpost.com/api/hackathons';
 const FETCH_PAGE_SIZE = 50;
+const LAST_24H_MS = 24 * 60 * 60 * 1000;
 
 function slugify(text) {
   return String(text || '')
@@ -43,6 +44,18 @@ function toIsoDate(input) {
   const d = new Date(input);
   if (Number.isNaN(d.getTime())) return new Date().toISOString().slice(0, 10);
   return d.toISOString().slice(0, 10);
+}
+
+function parseDateValue(input) {
+  const d = new Date(input);
+  if (Number.isNaN(d.getTime())) return null;
+  return d;
+}
+
+function isWithinLast24Hours(input) {
+  const d = parseDateValue(input);
+  if (!d) return false;
+  return Date.now() - d.getTime() <= LAST_24H_MS;
 }
 
 function excerptFromDescription(value) {
@@ -135,6 +148,7 @@ function formatEvent(ev) {
     type: 'hackathon',
     location,
     postedDate: toIsoDate(ev && ev.start && (ev.start.utc || ev.start.local)),
+    postedAt: ev && ev.start && (ev.start.utc || ev.start.local) ? new Date(ev.start.utc || ev.start.local).toISOString() : null,
     excerpt: excerptFromDescription(description),
     applyLink: String((ev && ev.url) || '').trim()
   };
@@ -174,6 +188,7 @@ function formatDevpostEvent(ev) {
     type: 'hackathon',
     location,
     postedDate: parseDevpostStartDate(ev && ev.submission_period_dates),
+    postedAt: null,
     excerpt: excerptParts.join(' | '),
     applyLink: String((ev && ev.url) || '').trim()
   };
@@ -213,7 +228,7 @@ async function main() {
   const formatted = [
     ...eventbriteEvents.map(formatEvent),
     ...devpostEvents.map(formatDevpostEvent)
-  ];
+  ].filter(item => isWithinLast24Hours(item && (item.postedAt || item.postedDate)));
 
   let nextId = maxId;
   const newItems = [];
@@ -235,6 +250,7 @@ async function main() {
       type: 'hackathon',
       location: item.location || 'Online',
       postedDate: item.postedDate,
+      postedAt: item.postedAt || null,
       excerpt: item.excerpt,
       applyLink: item.applyLink
     });

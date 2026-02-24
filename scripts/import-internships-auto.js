@@ -7,6 +7,7 @@ const __dirname = path.dirname(__filename);
 const ROOT = path.resolve(__dirname, '..');
 const INTERNSHIPS_FILE = path.join(ROOT, 'data', 'internships.json');
 const MAX_NEW_PER_RUN = 25;
+const LAST_24H_MS = 24 * 60 * 60 * 1000;
 
 function slugify(text) {
   return String(text || '')
@@ -28,6 +29,38 @@ function toIsoDate(value) {
   const d = new Date(value || Date.now());
   if (Number.isNaN(d.getTime())) return new Date().toISOString().slice(0, 10);
   return d.toISOString().slice(0, 10);
+}
+
+function parseDateValue(value) {
+  if (!value) return null;
+  const direct = new Date(value);
+  if (!Number.isNaN(direct.getTime())) return direct;
+
+  const m = String(value).match(
+    /^(\d{1,2})-(\d{1,2})-(\d{4})\s+(\d{1,2}):(\d{2})(?::(\d{2}))?\s*(AM|PM)$/i
+  );
+  if (!m) return null;
+
+  const day = Number(m[1]);
+  const month = Number(m[2]);
+  const year = Number(m[3]);
+  let hour = Number(m[4]);
+  const minute = Number(m[5]);
+  const second = Number(m[6] || '0');
+  const ampm = m[7].toUpperCase();
+
+  if (ampm === 'PM' && hour !== 12) hour += 12;
+  if (ampm === 'AM' && hour === 12) hour = 0;
+
+  const utc = new Date(Date.UTC(year, month - 1, day, hour, minute, second));
+  if (Number.isNaN(utc.getTime())) return null;
+  return utc;
+}
+
+function isWithinLast24Hours(dateValue) {
+  const dt = parseDateValue(dateValue);
+  if (!dt) return false;
+  return Date.now() - dt.getTime() <= LAST_24H_MS;
 }
 
 function uniqueSlug(baseSlug, usedSlugs) {
@@ -74,6 +107,7 @@ async function fetchArbeitnowJobs() {
 function mapRemotiveInternship(item) {
   const title = String(item && item.title ? item.title : '').trim();
   if (!title || !isInternLike(title, item && item.job_type)) return null;
+  if (!isWithinLast24Hours(item && item.publication_date)) return null;
 
   const company = String(item && item.company_name ? item.company_name : 'Not specified').trim();
   const location = String(item && item.candidate_required_location ? item.candidate_required_location : 'Remote').trim();
@@ -94,6 +128,7 @@ function mapArbeitnowInternship(item) {
   const title = String(item && item.title ? item.title : '').trim();
   const jobTypes = Array.isArray(item && item.job_types) ? item.job_types.join(' ') : '';
   if (!title || !isInternLike(title, jobTypes)) return null;
+  if (!isWithinLast24Hours(item && item.created_at)) return null;
 
   const company = String(item && item.company_name ? item.company_name : 'Not specified').trim();
   const isRemote = Boolean(item && item.remote);
