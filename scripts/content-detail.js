@@ -108,6 +108,12 @@
         return d.toISOString().slice(0, 10);
     }
 
+    function toIsoDateTimeEndOfDay(value) {
+        const datePart = toIsoDate(value);
+        if (!datePart) return null;
+        return `${datePart}T23:59:59Z`;
+    }
+
     function parseBaseSalary(value) {
         const text = String(value || '').trim();
         if (!text) return null;
@@ -141,14 +147,62 @@
 
     function parseLocation(value) {
         const text = String(value || '').trim();
-        if (!text) return { remote: false, locality: null, region: null, country: 'IN' };
-        const remote = /remote/i.test(text);
+        if (!text) {
+            return {
+                remote: false,
+                locality: null,
+                region: null,
+                postalCode: null,
+                streetAddress: null,
+                countryCode: 'IN',
+                countryName: 'India'
+            };
+        }
+
+        const remote = /remote|worldwide|anywhere|global/i.test(text);
         const parts = text.split(',').map(function (v) { return v.trim(); }).filter(Boolean);
+        const lower = text.toLowerCase();
+        const postalMatch = text.match(/\b(\d{5,6})\b/);
+
+        let countryCode = 'IN';
+        let countryName = 'India';
+        if (/\busa\b|\bunited states\b|\bus\b/.test(lower)) {
+            countryCode = 'US';
+            countryName = 'United States';
+        } else if (/\bcanada\b|\bca\b/.test(lower)) {
+            countryCode = 'CA';
+            countryName = 'Canada';
+        } else if (/\bgermany\b|\bde\b/.test(lower)) {
+            countryCode = 'DE';
+            countryName = 'Germany';
+        } else if (/\beurope\b/.test(lower)) {
+            countryCode = 'EU';
+            countryName = 'Europe';
+        } else if (/\bphilippines\b/.test(lower)) {
+            countryCode = 'PH';
+            countryName = 'Philippines';
+        } else if (/\bsouth africa\b/.test(lower)) {
+            countryCode = 'ZA';
+            countryName = 'South Africa';
+        } else if (/\bjamaica\b/.test(lower)) {
+            countryCode = 'JM';
+            countryName = 'Jamaica';
+        } else if (/\bisrael\b/.test(lower)) {
+            countryCode = 'IL';
+            countryName = 'Israel';
+        } else if (/\bindia\b|\bin\b/.test(lower)) {
+            countryCode = 'IN';
+            countryName = 'India';
+        }
+
         return {
             remote: remote,
             locality: parts[0] || text,
             region: parts.length > 1 ? parts[1] : null,
-            country: /india|in\b/i.test(text) ? 'IN' : 'IN'
+            postalCode: postalMatch ? postalMatch[1] : null,
+            streetAddress: text,
+            countryCode: countryCode,
+            countryName: countryName
         };
     }
 
@@ -833,7 +887,7 @@ ${category === 'projects' ? `
                 description: data.jobDescription || data.excerpt || '',
                 image: imageAbsolute,
                 datePosted: toIsoDate(data.postedDate) || new Date().toISOString().slice(0, 10),
-                validThrough: toIsoDate(data.lastDate) || undefined,
+                validThrough: toIsoDateTimeEndOfDay(data.lastDate) || undefined,
                 employmentType: 'FULL_TIME',
                 baseSalary: parseBaseSalary(data.salary) || undefined,
                 hiringOrganization: {
@@ -843,7 +897,7 @@ ${category === 'projects' ? `
                 },
                 applicantLocationRequirements: {
                     '@type': 'Country',
-                    name: locationData.country
+                    name: locationData.countryName
                 },
                 jobLocationType: locationData.remote ? 'TELECOMMUTE' : undefined,
                 jobLocation: locationData.remote
@@ -852,9 +906,11 @@ ${category === 'projects' ? `
                         '@type': 'Place',
                         address: {
                             '@type': 'PostalAddress',
-                            addressLocality: locationData.locality || 'Bengaluru',
-                            addressRegion: locationData.region || undefined,
-                            addressCountry: locationData.country
+                            streetAddress: locationData.streetAddress || locationData.locality || 'Not specified',
+                            addressLocality: locationData.locality || 'Not specified',
+                            addressRegion: locationData.region || locationData.locality || 'Not specified',
+                            postalCode: locationData.postalCode || '000000',
+                            addressCountry: locationData.countryName
                         }
                     }
             }
