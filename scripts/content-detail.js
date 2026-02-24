@@ -504,6 +504,17 @@
                 const aId = Number(a.id) || 0;
                 return bId - aId;
             })
+            .filter(function (item, index, arr) {
+                const key = String(item.applyLink || '').trim().toLowerCase()
+                    || String(item.slug || '').trim().toLowerCase()
+                    || `${String(item.type || '').toLowerCase()}|${String(item.title || '').toLowerCase()}|${String(item.company || '').toLowerCase()}`;
+                return arr.findIndex(function (x) {
+                    const xKey = String(x.applyLink || '').trim().toLowerCase()
+                        || String(x.slug || '').trim().toLowerCase()
+                        || `${String(x.type || '').toLowerCase()}|${String(x.title || '').toLowerCase()}|${String(x.company || '').toLowerCase()}`;
+                    return xKey === key;
+                }) === index;
+            })
             .slice(0, 4);
 
         const supportBlock = `

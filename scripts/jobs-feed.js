@@ -156,7 +156,6 @@ function updateCategoryCounts(counts) {
 function getCurrentPage() {
     const path = window.location.pathname;
     if (path === '/' || path === '/index.html') return 'home';
-    if (path.includes('/opportunities/')) return 'opportunities';
     if (path.includes('/internships/')) return 'internships';
     if (path.includes('/hackathons/')) return 'hackathons';
     if (path.includes('/projects/')) return 'projects';
@@ -326,6 +325,26 @@ function sortByPostedDateDesc(items) {
     });
 }
 
+function dedupeItems(items) {
+    const seen = new Set();
+    const out = [];
+
+    for (const item of items || []) {
+        const applyLink = String(item && item.applyLink ? item.applyLink : '').trim().toLowerCase();
+        const slug = String(item && item.slug ? item.slug : '').trim().toLowerCase();
+        const title = normalizeText(item && item.title ? item.title : '');
+        const company = normalizeText(item && item.company ? item.company : '');
+        const type = normalizeText(item && item.type ? item.type : '');
+        const key = applyLink || slug || `${type}|${title}|${company}`;
+        if (!key) continue;
+        if (seen.has(key)) continue;
+        seen.add(key);
+        out.push(item);
+    }
+
+    return out;
+}
+
 async function buildCards(list, currentPage, latestJobDate) {
     return await Promise.all(list.map(async item => {
         const href = await resolveDetailPath(item, currentPage);
@@ -406,12 +425,6 @@ async function displayItems(items, currentPage) {
         return;
     }
 
-    if (currentPage === 'opportunities') {
-        const all = sortByPostedDateDesc(items);
-        await renderSection('jobs-feed', all, currentPage, null);
-        return;
-    }
-
     const expectedType = PAGE_TO_TYPE[currentPage];
     const list = sortByPostedDateDesc(items.filter(item => item.type === expectedType));
     await renderSection('jobs-feed', list, currentPage, null);
@@ -484,7 +497,7 @@ async function loadFeed() {
     try {
         let categoryCounts = null;
 
-        if (currentPage === 'home' || currentPage === 'opportunities') {
+        if (currentPage === 'home') {
             const results = await Promise.allSettled([
                 fetchJson(DATA_FILES.jobs),
                 fetchJson(DATA_FILES.internships),
@@ -492,10 +505,10 @@ async function loadFeed() {
                 fetchJson(DATA_FILES.projects)
             ]);
 
-            const jobsData = results[0].status === 'fulfilled' ? results[0].value : [];
-            const internshipsData = results[1].status === 'fulfilled' ? results[1].value : [];
-            const hackathonsData = results[2].status === 'fulfilled' ? results[2].value : [];
-            const projectsData = results[3].status === 'fulfilled' ? results[3].value : [];
+            const jobsData = dedupeItems(results[0].status === 'fulfilled' ? results[0].value : []);
+            const internshipsData = dedupeItems(results[1].status === 'fulfilled' ? results[1].value : []);
+            const hackathonsData = dedupeItems(results[2].status === 'fulfilled' ? results[2].value : []);
+            const projectsData = dedupeItems(results[3].status === 'fulfilled' ? results[3].value : []);
 
             categoryCounts = {
                 jobs: jobsData.length,
@@ -513,6 +526,8 @@ async function loadFeed() {
         } else {
             items = await fetchJson(DATA_FILES[currentPage]);
         }
+
+        items = dedupeItems(items);
 
         if (categoryCounts && currentPage === 'home') updateCategoryCounts(categoryCounts);
 
