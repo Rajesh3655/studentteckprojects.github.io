@@ -1,5 +1,104 @@
 [
   {
+    "id": 11,
+    "title": "Amazon Nova AI Hackathon",
+    "company": "Amazon",
+    "slug": "amazon-nova-ai-hackathon-25719",
+    "type": "hackathon",
+    "location": "Online",
+    "postedDate": "2026-02-02",
+    "excerpt": "Amazon hackathon | Prize: $ 40,000 | Deadline: 20 days left",
+    "applyLink": "https://amazon-nova.devpost.com/"
+  },
+  {
+    "id": 12,
+    "title": "Gemini Live Agent Challenge",
+    "company": "Google",
+    "slug": "gemini-live-agent-challenge-28633",
+    "type": "hackathon",
+    "location": "Online",
+    "postedDate": "2026-02-16",
+    "excerpt": "Google hackathon | Prize: $ 80,000 | Deadline: 20 days left",
+    "applyLink": "https://geminiliveagentchallenge.devpost.com/"
+  },
+  {
+    "id": 13,
+    "title": "GitLab AI Hackathon",
+    "company": "GitLab",
+    "slug": "gitlab-ai-hackathon-28106",
+    "type": "hackathon",
+    "location": "Online",
+    "postedDate": "2026-02-09",
+    "excerpt": "GitLab hackathon | Prize: $ 65,000 | Deadline: 29 days left",
+    "applyLink": "https://gitlab.devpost.com/"
+  },
+  {
+    "id": 14,
+    "title": "Elasticsearch Agent Builder Hackathon",
+    "company": "Elastic",
+    "slug": "elasticsearch-agent-builder-hackathon-28053",
+    "type": "hackathon",
+    "location": "Online",
+    "postedDate": "2026-01-22",
+    "excerpt": "Elastic hackathon | Prize: $ 20,000 | Deadline: 3 days left",
+    "applyLink": "https://elasticsearch.devpost.com/"
+  },
+  {
+    "id": 15,
+    "title": "DigitalOcean Gradient™ AI Hackathon",
+    "company": "DigitalOcean",
+    "slug": "digitalocean-gradient-ai-hackathon-28141",
+    "type": "hackathon",
+    "location": "Online",
+    "postedDate": "2026-01-28",
+    "excerpt": "DigitalOcean hackathon | Prize: $ 20,000 | Deadline: 22 days left",
+    "applyLink": "https://digitalocean.devpost.com/"
+  },
+  {
+    "id": 16,
+    "title": "DevStudio 2026 by Logitech",
+    "company": "Logitech",
+    "slug": "devstudio-2026-by-logitech-27872",
+    "type": "hackathon",
+    "location": "Online",
+    "postedDate": "2026-01-21",
+    "excerpt": "Logitech hackathon | Prize: $ 20,000 | Deadline: 1 day left",
+    "applyLink": "https://devstudiologitech2026.devpost.com/"
+  },
+  {
+    "id": 17,
+    "title": "Dev_Dash",
+    "company": "HackFinity",
+    "slug": "dev-dash-28126",
+    "type": "hackathon",
+    "location": "Online",
+    "postedDate": "2026-01-26",
+    "excerpt": "HackFinity hackathon | Prize: $ 10,000 | Deadline: 4 days left",
+    "applyLink": "https://devdash.devpost.com/"
+  },
+  {
+    "id": 18,
+    "title": "Byte 2 Beat",
+    "company": "Hack4Health",
+    "slug": "byte-2-beat-27668",
+    "type": "hackathon",
+    "location": "Online",
+    "postedDate": "2025-12-05",
+    "excerpt": "Hack4Health hackathon | Prize: $ 1,500 | Deadline: 4 days left",
+    "applyLink": "https://byte2beat.devpost.com/"
+  },
+  {
+    "id": 19,
+    "title": "Hackonomics 2026",
+    "company": "hackonomics",
+    "slug": "hackonomics-2026-25957",
+    "type": "hackathon",
+    "location": "Online",
+    "postedDate": "2026-01-23",
+    "excerpt": "hackonomics hackathon | Prize: $ 0 | Deadline: about 1 month left",
+    "applyLink": "https://hackonomics26.devpost.com/"
+  },
+  {
     "id": 3,
     "title": "Data Science Hackathon",
     "company": "Microsoft",
