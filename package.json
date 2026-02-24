@@ -6,6 +6,8 @@
   "scripts": {
     "build:sitemap": "node scripts/generate-sitemap.js",
     "import:projects": "node scripts/import-project-titles.js",
-    "import:hackathons:eventbrite": "node scripts/import-hackathons-eventbrite.js"
+    "import:hackathons:eventbrite": "node scripts/import-hackathons-eventbrite.js",
+    "import:jobs:auto": "node scripts/import-jobs-auto.js",
+    "import:internships:auto": "node scripts/import-internships-auto.js"
   }
 }
