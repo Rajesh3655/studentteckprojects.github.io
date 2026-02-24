@@ -496,7 +496,14 @@
 
         const related = list
             .filter(item => item.slug !== slug)
-            .sort((a, b) => new Date(b.postedDate || 0) - new Date(a.postedDate || 0))
+            .sort((a, b) => {
+                const bDate = new Date(b.postedAt || b.postedDate || 0).getTime();
+                const aDate = new Date(a.postedAt || a.postedDate || 0).getTime();
+                if (bDate !== aDate) return bDate - aDate;
+                const bId = Number(b.id) || 0;
+                const aId = Number(a.id) || 0;
+                return bId - aId;
+            })
             .slice(0, 4);
 
         const supportBlock = `
