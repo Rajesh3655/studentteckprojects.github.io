@@ -195,8 +195,21 @@ async function main() {
   const maxId = existing.reduce((m, item) => Math.max(m, Number(item.id) || 0), 0);
 
   const last24hDate = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString();
-  const eventbriteEvents = await fetchEventbrite('hackathon', last24hDate);
-  const devpostEvents = await fetchDevpostOpenHackathons();
+
+  let eventbriteEvents = [];
+  try {
+    eventbriteEvents = await fetchEventbrite('hackathon', last24hDate);
+  } catch (err) {
+    console.error(`Eventbrite fetch failed: ${err instanceof Error ? err.message : String(err)}`);
+  }
+
+  let devpostEvents = [];
+  try {
+    devpostEvents = await fetchDevpostOpenHackathons();
+  } catch (err) {
+    console.error(`Devpost fetch failed: ${err instanceof Error ? err.message : String(err)}`);
+  }
+
   const formatted = [
     ...eventbriteEvents.map(formatEvent),
     ...devpostEvents.map(formatDevpostEvent)
