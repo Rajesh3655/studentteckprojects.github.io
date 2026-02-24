@@ -4,6 +4,7 @@ const DATA_FILES = {
     hackathons: '/data/hackathons.json',
     projects: '/data/projects.json'
 };
+const HOME_FEED_FILE = '/data/home-feed.json';
 
 const TYPE_TO_CATEGORY = {
     job: 'jobs',
@@ -168,8 +169,7 @@ async function fetchJson(url) {
     if (!response.ok) {
         throw new Error(`Failed to load ${url}`);
     }
-    const data = await response.json();
-    return Array.isArray(data) ? data : [];
+    return await response.json();
 }
 
 function escapeHtml(value) {
@@ -279,7 +279,7 @@ function ensureSearchUi(currentPage, onChange) {
     wrapper.innerHTML = `
         <label for="feed-search" class="block text-sm font-medium text-gray-700 mb-2">Search opportunities</label>
         <div class="relative">
-            <i class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
+            <span class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" aria-hidden="true">🔍</span>
             <input id="feed-search" type="text" placeholder="Search by title, company, skill, domain, location..."
                 class="w-full rounded-lg border border-gray-300 pl-10 pr-3 py-2.5 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" />
         </div>
@@ -498,33 +498,60 @@ async function loadFeed() {
         let categoryCounts = null;
 
         if (currentPage === 'home') {
-            const results = await Promise.allSettled([
-                fetchJson(DATA_FILES.jobs),
-                fetchJson(DATA_FILES.internships),
-                fetchJson(DATA_FILES.hackathons),
-                fetchJson(DATA_FILES.projects)
-            ]);
+            try {
+                const homeFeed = await fetchJson(HOME_FEED_FILE);
+                if (homeFeed && !Array.isArray(homeFeed) && homeFeed.latest) {
+                    const jobsData = dedupeItems(Array.isArray(homeFeed.latest.jobs) ? homeFeed.latest.jobs : []);
+                    const internshipsData = dedupeItems(Array.isArray(homeFeed.latest.internships) ? homeFeed.latest.internships : []);
+                    const hackathonsData = dedupeItems(Array.isArray(homeFeed.latest.hackathons) ? homeFeed.latest.hackathons : []);
+                    const projectsData = dedupeItems(Array.isArray(homeFeed.latest.projects) ? homeFeed.latest.projects : []);
 
-            const jobsData = dedupeItems(results[0].status === 'fulfilled' ? results[0].value : []);
-            const internshipsData = dedupeItems(results[1].status === 'fulfilled' ? results[1].value : []);
-            const hackathonsData = dedupeItems(results[2].status === 'fulfilled' ? results[2].value : []);
-            const projectsData = dedupeItems(results[3].status === 'fulfilled' ? results[3].value : []);
+                    categoryCounts = {
+                        jobs: Number(homeFeed.counts && homeFeed.counts.jobs) || jobsData.length,
+                        internships: Number(homeFeed.counts && homeFeed.counts.internships) || internshipsData.length,
+                        hackathons: Number(homeFeed.counts && homeFeed.counts.hackathons) || hackathonsData.length,
+                        projects: Number(homeFeed.counts && homeFeed.counts.projects) || projectsData.length
+                    };
 
-            categoryCounts = {
-                jobs: jobsData.length,
-                internships: internshipsData.length,
-                hackathons: hackathonsData.length,
-                projects: projectsData.length
-            };
+                    items = [
+                        ...jobsData,
+                        ...internshipsData,
+                        ...hackathonsData,
+                        ...projectsData
+                    ];
+                } else {
+                    throw new Error('Invalid home-feed payload');
+                }
+            } catch (_homeFeedErr) {
+                const results = await Promise.allSettled([
+                    fetchJson(DATA_FILES.jobs),
+                    fetchJson(DATA_FILES.internships),
+                    fetchJson(DATA_FILES.hackathons),
+                    fetchJson(DATA_FILES.projects)
+                ]);
 
-            items = [
-                ...jobsData,
-                ...internshipsData,
-                ...hackathonsData,
-                ...projectsData
-            ];
+                const jobsData = dedupeItems(results[0].status === 'fulfilled' && Array.isArray(results[0].value) ? results[0].value : []);
+                const internshipsData = dedupeItems(results[1].status === 'fulfilled' && Array.isArray(results[1].value) ? results[1].value : []);
+                const hackathonsData = dedupeItems(results[2].status === 'fulfilled' && Array.isArray(results[2].value) ? results[2].value : []);
+                const projectsData = dedupeItems(results[3].status === 'fulfilled' && Array.isArray(results[3].value) ? results[3].value : []);
+
+                categoryCounts = {
+                    jobs: jobsData.length,
+                    internships: internshipsData.length,
+                    hackathons: hackathonsData.length,
+                    projects: projectsData.length
+                };
+
+                items = [
+                    ...jobsData,
+                    ...internshipsData,
+                    ...hackathonsData,
+                    ...projectsData
+                ];
+            }
         } else {
-            items = await fetchJson(DATA_FILES[currentPage]);
+            const payload = await fetchJson(DATA_FILES[currentPage]);
+            items = Array.isArray(payload) ? payload : [];
         }
 
         items = dedupeItems(items);

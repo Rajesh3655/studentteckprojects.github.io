@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2919350397675296"
-     crossorigin="anonymous"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="theme-color" content="#1d4ed8">
@@ -11,7 +9,6 @@
     <title>StudentTechProjects - Tech Opportunities for Students</title>
     <meta name="description" content="Find latest tech jobs, internships, hackathons and projects for students. Your gateway to tech career opportunities.">
     <link rel="preconnect" href="https://cdn.tailwindcss.com">
-    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
     
     <!-- Canonical URL -->
     <link rel="canonical" href="https://studenttechprojects.com">
@@ -31,14 +28,16 @@
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Font Awesome for Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    
     <style>
 .breadcrumb-item + .breadcrumb-item:before {
             content: "›";
             padding: 0 8px;
             color: #6b7280;
+        }
+        /* Improve initial paint by skipping offscreen sections. */
+        main > section {
+            content-visibility: auto;
+            contain-intrinsic-size: 1px 680px;
         }
     </style>
 </head>
@@ -63,8 +62,8 @@
                 </div>
                 
                 <!-- Mobile Menu Button -->
-                <button id="mobile-menu-button" class="md:hidden text-2xl">
-                    <i class="fas fa-bars"></i>
+                <button id="mobile-menu-button" class="md:hidden text-2xl" aria-label="Toggle menu">
+                    <span class="menu-icon" aria-hidden="true">☰</span>
                 </button>
             </div>
             
@@ -103,25 +102,25 @@
 <!-- Featured Categories -->
         <section class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
             <a href="/jobs/" class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition">
-                <i class="fas fa-briefcase text-3xl text-blue-600 mb-3"></i>
+                <span class="block text-3xl text-blue-600 mb-3" aria-hidden="true">💼</span>
                 <h2 class="text-xl font-semibold mb-2">Jobs</h2>
                 <p class="text-gray-600">Find your dream tech job</p>
                 <p class="text-sm text-gray-500 mt-2"><span id="count-jobs">0</span> total</p>
             </a>
             <a href="/projects/" class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition">
-                <i class="fas fa-code-branch text-3xl text-orange-600 mb-3"></i>
+                <span class="block text-3xl text-orange-600 mb-3" aria-hidden="true">🧩</span>
                 <h2 class="text-xl font-semibold mb-2">Projects</h2>
                 <p class="text-gray-600">Build your portfolio</p>
                 <p class="text-sm text-gray-500 mt-2"><span id="count-projects">0</span> total</p>
             </a>
             <a href="/internships/" class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition">
-                <i class="fas fa-laptop-code text-3xl text-green-600 mb-3"></i>
+                <span class="block text-3xl text-green-600 mb-3" aria-hidden="true">💻</span>
                 <h2 class="text-xl font-semibold mb-2">Internships</h2>
                 <p class="text-gray-600">Gain practical experience</p>
                 <p class="text-sm text-gray-500 mt-2"><span id="count-internships">0</span> total</p>
             </a>
             <a href="/hackathons/" class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition">
-                <i class="fas fa-trophy text-3xl text-purple-600 mb-3"></i>
+                <span class="block text-3xl text-purple-600 mb-3" aria-hidden="true">🏆</span>
                 <h2 class="text-xl font-semibold mb-2">Hackathons</h2>
                 <p class="text-gray-600">Compete and innovate</p>
                 <p class="text-sm text-gray-500 mt-2"><span id="count-hackathons">0</span> total</p>
@@ -198,9 +197,9 @@
                 <div>
                     <h3 class="text-xl font-bold mb-4">Connect</h3>
                     <div class="flex space-x-4">
-                        <a href="#" class="text-gray-400 hover:text-white text-2xl"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="text-gray-400 hover:text-white text-2xl"><i class="fab fa-linkedin"></i></a>
-                        <a href="#" class="text-gray-400 hover:text-white text-2xl"><i class="fab fa-github"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white text-2xl" aria-label="X">X</a>
+                        <a href="#" class="text-gray-400 hover:text-white text-2xl" aria-label="LinkedIn">in</a>
+                        <a href="#" class="text-gray-400 hover:text-white text-2xl" aria-label="GitHub">GH</a>
                     </div>
                 </div>
             </div>
@@ -211,8 +210,25 @@
         </div>
     </footer>
 
-    <script defer src="/scripts/site.js"></script>
-    <script defer src="/scripts/jobs-feed.js?v=20260223b"></script>
+    <script defer src="/scripts/site.js?v=20260224a"></script>
+    <script defer src="/scripts/jobs-feed.js?v=20260224c"></script>
+    <script>
+        // Delay ad script so first content paints faster.
+        window.addEventListener('load', function () {
+            var loadAds = function () {
+                var s = document.createElement('script');
+                s.async = true;
+                s.crossOrigin = 'anonymous';
+                s.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2919350397675296';
+                document.head.appendChild(s);
+            };
+            if ('requestIdleCallback' in window) {
+                requestIdleCallback(loadAds, { timeout: 2000 });
+            } else {
+                setTimeout(loadAds, 1200);
+            }
+        });
+    </script>
 </body>
 </html>
 
