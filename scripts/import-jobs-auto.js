@@ -8,6 +8,7 @@ const ROOT = path.resolve(__dirname, '..');
 const JOBS_FILE = path.join(ROOT, 'data', 'jobs.json');
 const MAX_NEW_PER_RUN = 30;
 const LAST_24H_MS = 24 * 60 * 60 * 1000;
+const SOFTWARE_ROLE_REGEX = /(software|developer|engineer|programmer|frontend|front end|backend|back end|full ?stack|sde|devops|cloud|data engineer|qa|test automation|site reliability|sre|machine learning|ml engineer|ai engineer|security engineer|platform engineer|application engineer|oracle|sap|erp|it\b)/i;
 
 function slugify(text) {
   return String(text || '')
@@ -88,6 +89,17 @@ function isInternLike(title) {
   return /(intern|internship|trainee|apprentice)/i.test(String(title || ''));
 }
 
+function isSoftwareRole(title, description, category) {
+  const text = `${String(title || '')} ${String(description || '')} ${String(category || '')}`;
+  return SOFTWARE_ROLE_REGEX.test(text);
+}
+
+function isIndiaLocation(location) {
+  const text = String(location || '').toLowerCase();
+  if (!text) return false;
+  return /india|bengaluru|bangalore|hyderabad|pune|chennai|gurgaon|gurugram|noida|mumbai|kolkata|ahmedabad|kochi|coimbatore|delhi|remote.*india|india.*remote/.test(text);
+}
+
 async function fetchRemotiveJobs() {
   const url = 'https://remotive.com/api/remote-jobs';
   const response = await fetch(url);
@@ -108,6 +120,7 @@ function mapRemotiveJob(item) {
   const title = String(item && item.title ? item.title : '').trim();
   if (!title || isInternLike(title)) return null;
   if (!isWithinLast24Hours(item && item.publication_date)) return null;
+  if (!isSoftwareRole(title, item && item.description, item && item.category)) return null;
 
   const company = String(item && item.company_name ? item.company_name : 'Not specified').trim();
   const location = String(item && item.candidate_required_location ? item.candidate_required_location : 'Remote').trim();
@@ -123,7 +136,8 @@ function mapRemotiveJob(item) {
     postedAt: dt ? dt.toISOString() : null,
     excerpt: makeExcerpt(company, title, location, item && item.description),
     applyLink,
-    salary: String(item && item.salary ? stripHtml(item.salary) : '').trim() || 'Not specified'
+    salary: String(item && item.salary ? stripHtml(item.salary) : '').trim() || 'Not specified',
+    indiaPriority: isIndiaLocation(location) ? 1 : 0
   };
 }
 
@@ -131,6 +145,7 @@ function mapArbeitnowJob(item) {
   const title = String(item && item.title ? item.title : '').trim();
   if (!title || isInternLike(title)) return null;
   if (!isWithinLast24Hours(item && item.created_at)) return null;
+  if (!isSoftwareRole(title, item && item.description, (item && item.tags && item.tags.join(' ')) || '')) return null;
 
   const company = String(item && item.company_name ? item.company_name : 'Not specified').trim();
   const isRemote = Boolean(item && item.remote);
@@ -148,7 +163,8 @@ function mapArbeitnowJob(item) {
     postedAt: dt ? dt.toISOString() : null,
     excerpt: makeExcerpt(company, title, location, item && item.description),
     applyLink,
-    salary: 'Not specified'
+    salary: 'Not specified',
+    indiaPriority: isIndiaLocation(location) ? 1 : 0
   };
 }
 
@@ -183,7 +199,12 @@ async function main() {
     ...arbeitnow.map(mapArbeitnowJob)
   ]
     .filter(Boolean)
-    .sort((a, b) => new Date(b.postedAt || b.postedDate || 0) - new Date(a.postedAt || a.postedDate || 0));
+    .sort((a, b) => {
+      if ((b.indiaPriority || 0) !== (a.indiaPriority || 0)) {
+        return (b.indiaPriority || 0) - (a.indiaPriority || 0);
+      }
+      return new Date(b.postedAt || b.postedDate || 0) - new Date(a.postedAt || a.postedDate || 0);
+    });
 
   const seenIncoming = new Set();
   const toAdd = [];
