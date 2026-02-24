@@ -1,6 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { refreshCompanyImages } from './refresh-company-images.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -254,6 +255,17 @@ async function main() {
   console.log(
     `Added ${toAdd.length} jobs. Sources fetched: remotive=${remotive.length}, arbeitnow=${arbeitnow.length}. Total now: ${merged.length}`
   );
+
+  try {
+    const result = await refreshCompanyImages({ onlySlugs: toAdd.map(item => item.slug) });
+    console.log(
+      `Generated company images for new jobs: ${result.total} (${result.withLogo} with logos, ${result.fallback} fallback).`
+    );
+  } catch (err) {
+    console.error(
+      `Company image refresh failed after import: ${err instanceof Error ? err.message : String(err)}`
+    );
+  }
 }
 
 main().catch(err => {

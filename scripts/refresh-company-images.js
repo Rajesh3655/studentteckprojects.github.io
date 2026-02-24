@@ -1,6 +1,9 @@
-const fs = require('fs');
-const path = require('path');
+import fs from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 const ROOT = path.resolve(__dirname, '..');
 const JOBS_FILE = path.join(ROOT, 'data', 'jobs.json');
 const OUTPUT_DIR = path.join(ROOT, 'images', 'opportunities');
@@ -227,9 +230,17 @@ function buildSvg(job, logoData) {
 `;
 }
 
-async function main() {
+export async function refreshCompanyImages(options = {}) {
+    const onlySlugs = new Set(
+        Array.isArray(options.onlySlugs)
+            ? options.onlySlugs.map(s => String(s || '').trim()).filter(Boolean)
+            : []
+    );
     const jobs = JSON.parse(fs.readFileSync(JOBS_FILE, 'utf8'))
-        .filter(item => item && item.type === 'job');
+        .filter(item => item && item.type === 'job')
+        .filter(item => !onlySlugs.size || onlySlugs.has(String(item.slug || '').trim()));
+
+    fs.mkdirSync(OUTPUT_DIR, { recursive: true });
 
     let withLogo = 0;
     let fallback = 0;
@@ -248,9 +259,16 @@ async function main() {
     }
 
     console.log(`Updated ${jobs.length} images (${withLogo} with logos, ${fallback} fallback)`);
+    return { total: jobs.length, withLogo, fallback };
 }
 
-main().catch(err => {
-    console.error(err);
-    process.exit(1);
-});
+async function main() {
+    await refreshCompanyImages();
+}
+
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
+    main().catch(err => {
+        console.error(err);
+        process.exit(1);
+    });
+}
