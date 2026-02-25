@@ -27,17 +27,20 @@ function readArray(filePath) {
 
 function sortByPostedDateDesc(items) {
   return items.slice().sort((a, b) => {
+    const bId = Number(b.id) || 0;
+    const aId = Number(a.id) || 0;
+    if (bId !== aId) return bId - aId;
+
     const bDate = new Date(b.postedAt || b.postedDate || 0).getTime();
     const aDate = new Date(a.postedAt || a.postedDate || 0).getTime();
     if (bDate !== aDate) return bDate - aDate;
-    const bId = Number(b.id) || 0;
-    const aId = Number(a.id) || 0;
-    return bId - aId;
+    return 0;
   });
 }
 
 function pickFields(item) {
   return {
+    id: Number(item.id) || null,
     title: item.title || '',
     company: item.company || '',
     slug: item.slug || '',
