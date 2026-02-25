@@ -58,14 +58,25 @@ function buildCategory(items) {
   return sortByPostedDateDesc(items).slice(0, LIMIT_PER_CATEGORY).map(pickFields);
 }
 
+function latestTimestamp(items) {
+  let latest = 0;
+  for (const item of items) {
+    const ts = new Date(item.postedAt || item.postedDate || 0).getTime();
+    if (Number.isFinite(ts) && ts > latest) latest = ts;
+  }
+  return latest;
+}
+
 function main() {
   const jobs = readArray(INPUTS.jobs).filter(x => x && x.type === 'job');
   const internships = readArray(INPUTS.internships).filter(x => x && x.type === 'internship');
   const hackathons = readArray(INPUTS.hackathons).filter(x => x && x.type === 'hackathon');
   const projects = readArray(INPUTS.projects).filter(x => x && x.type === 'project');
+  const allItems = [...jobs, ...internships, ...hackathons, ...projects];
+  const latest = latestTimestamp(allItems);
 
   const payload = {
-    updatedAt: new Date().toISOString(),
+    updatedAt: latest ? new Date(latest).toISOString() : null,
     counts: {
       jobs: jobs.length,
       internships: internships.length,
