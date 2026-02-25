@@ -4,7 +4,7 @@
     "jobs": 92,
     "internships": 13,
     "hackathons": 12,
-    "projects": 0
+    "projects": 1257
   },
   "latest": {
     "jobs": [
@@ -445,6 +445,151 @@
         "teamSize": ""
       }
     ],
-    "projects": []
+    "projects": [
+      {
+        "id": 1263,
+        "title": "Digital Decision-Support and Incentive Platform for Oil Palm Farmers",
+        "company": "Ministry of Agriculture & Farmers Welfare (MoA&FW)",
+        "slug": "sih25276-digital-decision-support-and-incentive-platform-for-oil-palm-farmers",
+        "type": "project",
+        "location": "India",
+        "postedDate": "2026-02-24",
+        "postedAt": null,
+        "excerpt": "Digital Decision-Support and Incentive Platform for Oil Palm Farmers is a Smart India Hackathon project (SIH25276) under Ministry of Agriculture & Farmers Welfare (MoA&FW). Category: Software. Domain: Agriculture, FoodTech & Rural Development. Build a practical implementation with measurable outcomes and deployment-ready modules.",
+        "experience": "Not specified",
+        "domain": "Agriculture, FoodTech & Rural Development",
+        "duration": "",
+        "difficulty": "",
+        "teamSize": ""
+      },
+      {
+        "id": 1262,
+        "title": "Value Chain Integration System for Oilseed By-Products",
+        "company": "Ministry of Agriculture & Farmers Welfare (MoA&FW)",
+        "slug": "sih25275-value-chain-integration-system-for-oilseed-by-products",
+        "type": "project",
+        "location": "India",
+        "postedDate": "2026-02-24",
+        "postedAt": null,
+        "excerpt": "Value Chain Integration System for Oilseed By-Products is a Smart India Hackathon project (SIH25275) under Ministry of Agriculture & Farmers Welfare (MoA&FW). Category: Software. Domain: Agriculture, FoodTech & Rural Development. Build a practical implementation with measurable outcomes and deployment-ready modules.",
+        "experience": "Not specified",
+        "domain": "Agriculture, FoodTech & Rural Development",
+        "duration": "",
+        "difficulty": "",
+        "teamSize": ""
+      },
+      {
+        "id": 1261,
+        "title": "Hedging Platform for Oilseed Price Risk Management",
+        "company": "Ministry of Agriculture & Farmers Welfare (MoA&FW)",
+        "slug": "sih25274-hedging-platform-for-oilseed-price-risk-management",
+        "type": "project",
+        "location": "India",
+        "postedDate": "2026-02-24",
+        "postedAt": null,
+        "excerpt": "Hedging Platform for Oilseed Price Risk Management is a Smart India Hackathon project (SIH25274) under Ministry of Agriculture & Farmers Welfare (MoA&FW). Category: Software. Domain: Agriculture, FoodTech & Rural Development. Build a practical implementation with measurable outcomes and deployment-ready modules.",
+        "experience": "Not specified",
+        "domain": "Agriculture, FoodTech & Rural Development",
+        "duration": "",
+        "difficulty": "",
+        "teamSize": ""
+      },
+      {
+        "id": 1260,
+        "title": "Crop Shift Mitigation App for Promoting Oilseed Farming",
+        "company": "Ministry of Agriculture & Farmers Welfare (MoA&FW)",
+        "slug": "sih25273-crop-shift-mitigation-app-for-promoting-oilseed-farming",
+        "type": "project",
+        "location": "India",
+        "postedDate": "2026-02-24",
+        "postedAt": null,
+        "excerpt": "Crop Shift Mitigation App for Promoting Oilseed Farming is a Smart India Hackathon project (SIH25273) under Ministry of Agriculture & Farmers Welfare (MoA&FW). Category: Software. Domain: Agriculture, FoodTech & Rural Development. Build a practical implementation with measurable outcomes and deployment-ready modules.",
+        "experience": "Not specified",
+        "domain": "Agriculture, FoodTech & Rural Development",
+        "duration": "",
+        "difficulty": "",
+        "teamSize": ""
+      },
+      {
+        "id": 1259,
+        "title": "AI-Driven Yield Optimization Platform for Oilseed Crops",
+        "company": "Ministry of Agriculture & Farmers Welfare (MoA&FW)",
+        "slug": "sih25272-ai-driven-yield-optimization-platform-for-oilseed-crops",
+        "type": "project",
+        "location": "India",
+        "postedDate": "2026-02-24",
+        "postedAt": null,
+        "excerpt": "AI-Driven Yield Optimization Platform for Oilseed Crops is a Smart India Hackathon project (SIH25272) under Ministry of Agriculture & Farmers Welfare (MoA&FW). Category: Software. Domain: Agriculture, FoodTech & Rural Development. Build a practical implementation with measurable outcomes and deployment-ready modules.",
+        "experience": "Not specified",
+        "domain": "Agriculture, FoodTech & Rural Development",
+        "duration": "",
+        "difficulty": "",
+        "teamSize": ""
+      },
+      {
+        "id": 1258,
+        "title": "AI-Powered Import Impact Simulator for Palm Oil Tariffs",
+        "company": "Ministry of Agriculture & Farmers Welfare (MoA&FW)",
+        "slug": "sih25271-ai-powered-import-impact-simulator-for-palm-oil-tariffs",
+        "type": "project",
+        "location": "India",
+        "postedDate": "2026-02-24",
+        "postedAt": null,
+        "excerpt": "AI-Powered Import Impact Simulator for Palm Oil Tariffs is a Smart India Hackathon project (SIH25271) under Ministry of Agriculture & Farmers Welfare (MoA&FW). Category: Software. Domain: Agriculture, FoodTech & Rural Development. Build a practical implementation with measurable outcomes and deployment-ready modules.",
+        "experience": "Not specified",
+        "domain": "Agriculture, FoodTech & Rural Development",
+        "duration": "",
+        "difficulty": "",
+        "teamSize": ""
+      },
+      {
+        "id": 1257,
+        "title": "AI-Enabled Value Chain Platform for Oilseed Self-Reliance",
+        "company": "Ministry of Agriculture & Farmers Welfare (MoA&FW)",
+        "slug": "sih25270-ai-enabled-value-chain-platform-for-oilseed-self-reliance",
+        "type": "project",
+        "location": "India",
+        "postedDate": "2026-02-24",
+        "postedAt": null,
+        "excerpt": "AI-Enabled Value Chain Platform for Oilseed Self-Reliance is a Smart India Hackathon project (SIH25270) under Ministry of Agriculture & Farmers Welfare (MoA&FW). Category: Software. Domain: Agriculture, FoodTech & Rural Development. Build a practical implementation with measurable outcomes and deployment-ready modules.",
+        "experience": "Not specified",
+        "domain": "Agriculture, FoodTech & Rural Development",
+        "duration": "",
+        "difficulty": "",
+        "teamSize": ""
+      },
+      {
+        "id": 1256,
+        "title": "National Campaign and Digital Platform for Reducing Edible Oil Consumption",
+        "company": "Ministry of Agriculture & Farmers Welfare (MoA&FW)",
+        "slug": "sih25269-national-campaign-and-digital-platform-for-reducing-edible-oil-consumption",
+        "type": "project",
+        "location": "India",
+        "postedDate": "2026-02-24",
+        "postedAt": null,
+        "excerpt": "National Campaign and Digital Platform for Reducing Edible Oil Consumption is a Smart India Hackathon project (SIH25269) under Ministry of Agriculture & Farmers Welfare (MoA&FW). Category: Software. Domain: Agriculture, FoodTech & Rural Development. Build a practical implementation with measurable outcomes and deployment-ready modules.",
+        "experience": "Not specified",
+        "domain": "Agriculture, FoodTech & Rural Development",
+        "duration": "",
+        "difficulty": "",
+        "teamSize": ""
+      },
+      {
+        "id": 1255,
+        "title": "Early Detection of Wheat Diseases",
+        "company": "Ministry of Agriculture & Farmers Welfare (MoA&FW)",
+        "slug": "sih25268-early-detection-of-wheat-diseases",
+        "type": "project",
+        "location": "India",
+        "postedDate": "2026-02-24",
+        "postedAt": null,
+        "excerpt": "Early Detection of Wheat Diseases is a Smart India Hackathon project (SIH25268) under Ministry of Agriculture & Farmers Welfare (MoA&FW). Category: Software. Domain: Agriculture, FoodTech & Rural Development. Build a practical implementation with measurable outcomes and deployment-ready modules.",
+        "experience": "Not specified",
+        "domain": "Agriculture, FoodTech & Rural Development",
+        "duration": "",
+        "difficulty": "",
+        "teamSize": ""
+      }
+    ]
   }
 }
