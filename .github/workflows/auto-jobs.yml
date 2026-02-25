@@ -24,7 +24,8 @@ jobs:
 
       - name: Import jobs
         env:
-          IMPORT_LOOKBACK_HOURS: "72"
+          IMPORT_LOOKBACK_HOURS: "168"
+          IMPORT_ONLY_INDIA: "1"
         run: npm run import:jobs:auto
 
       - name: Regenerate sitemap

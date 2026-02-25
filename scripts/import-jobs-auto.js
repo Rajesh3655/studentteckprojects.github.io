@@ -10,6 +10,7 @@ const JOBS_FILE = path.join(ROOT, 'data', 'jobs.json');
 const MAX_NEW_PER_RUN = 30;
 const LOOKBACK_HOURS = Number(process.env.IMPORT_LOOKBACK_HOURS || '72');
 const LOOKBACK_MS = Math.max(1, LOOKBACK_HOURS) * 60 * 60 * 1000;
+const IMPORT_ONLY_INDIA = String(process.env.IMPORT_ONLY_INDIA || '1') === '1';
 const SOFTWARE_ROLE_REGEX = /(software|developer|engineer|programmer|frontend|front end|backend|back end|full ?stack|sde|devops|cloud|data engineer|qa|test automation|site reliability|sre|machine learning|ml engineer|ai engineer|security engineer|platform engineer|application engineer|oracle|sap|erp|it\b)/i;
 
 function slugify(text) {
@@ -71,8 +72,14 @@ function makeExcerpt(company, title, location, description) {
   const lead = `${company} is hiring for ${title} role in ${location}.`;
   const body = stripHtml(description || '');
   if (!body) return lead;
-  const clipped = body.length > 140 ? `${body.slice(0, 137)}...` : body;
+  const clipped = body.length > 260 ? `${body.slice(0, 257)}...` : body;
   return `${lead} ${clipped}`;
+}
+
+function makeDetailedDescription(title, company, location, description) {
+  const clean = stripHtml(description || '');
+  if (clean) return clean;
+  return `${company} is hiring for ${title} in ${location}. Please check the official application link for complete responsibilities, skills, and eligibility details.`;
 }
 
 function uniqueSlug(baseSlug, usedSlugs) {
@@ -103,11 +110,25 @@ function isIndiaLocation(location) {
 }
 
 async function fetchRemotiveJobs() {
-  const url = 'https://remotive.com/api/remote-jobs';
-  const response = await fetch(url);
-  if (!response.ok) throw new Error(`Remotive failed: ${response.status}`);
-  const payload = await response.json();
-  return Array.isArray(payload.jobs) ? payload.jobs : [];
+  const urls = [
+    'https://remotive.com/api/remote-jobs',
+    'https://remotive.com/api/remote-jobs?search=india'
+  ];
+  const all = [];
+  const seen = new Set();
+  for (const url of urls) {
+    const response = await fetch(url);
+    if (!response.ok) throw new Error(`Remotive failed: ${response.status}`);
+    const payload = await response.json();
+    const list = Array.isArray(payload.jobs) ? payload.jobs : [];
+    for (const item of list) {
+      const key = String(item && (item.id || item.url || item.title) || '').trim().toLowerCase();
+      if (!key || seen.has(key)) continue;
+      seen.add(key);
+      all.push(item);
+    }
+  }
+  return all;
 }
 
 async function fetchArbeitnowJobs() {
@@ -126,9 +147,11 @@ function mapRemotiveJob(item) {
 
   const company = String(item && item.company_name ? item.company_name : 'Not specified').trim();
   const location = String(item && item.candidate_required_location ? item.candidate_required_location : 'Remote').trim();
+  if (IMPORT_ONLY_INDIA && !isIndiaLocation(location) && !/india/i.test(String(item && item.description ? item.description : ''))) return null;
   const applyLink = String(item && item.url ? item.url : '').trim();
   if (!applyLink) return null;
   const dt = parseDateValue(item && item.publication_date);
+  const detailedDescription = makeDetailedDescription(title, company, location, item && item.description);
 
   return {
     title,
@@ -137,6 +160,7 @@ function mapRemotiveJob(item) {
     postedDate: toIsoDate(item && item.publication_date),
     postedAt: dt ? dt.toISOString() : null,
     excerpt: makeExcerpt(company, title, location, item && item.description),
+    jobDescription: detailedDescription,
     applyLink,
     salary: String(item && item.salary ? stripHtml(item.salary) : '').trim() || 'Not specified',
     indiaPriority: isIndiaLocation(location) ? 1 : 0
@@ -153,9 +177,11 @@ function mapArbeitnowJob(item) {
   const isRemote = Boolean(item && item.remote);
   const locationValue = String(item && item.location ? item.location : '').trim();
   const location = locationValue || (isRemote ? 'Remote' : 'Not specified');
+  if (IMPORT_ONLY_INDIA && !isIndiaLocation(location) && !/india/i.test(String(item && item.description ? item.description : ''))) return null;
   const applyLink = String(item && item.url ? item.url : '').trim();
   if (!applyLink) return null;
   const dt = parseDateValue(item && item.created_at);
+  const detailedDescription = makeDetailedDescription(title, company, location, item && item.description);
 
   return {
     title,
@@ -164,6 +190,7 @@ function mapArbeitnowJob(item) {
     postedDate: toIsoDate(item && item.created_at),
     postedAt: dt ? dt.toISOString() : null,
     excerpt: makeExcerpt(company, title, location, item && item.description),
+    jobDescription: detailedDescription,
     applyLink,
     salary: 'Not specified',
     indiaPriority: isIndiaLocation(location) ? 1 : 0
@@ -174,13 +201,28 @@ async function main() {
   const existing = JSON.parse(fs.readFileSync(JOBS_FILE, 'utf8'));
   if (!Array.isArray(existing)) throw new Error('data/jobs.json must be an array');
 
+  const existingNormalized = existing.map((item) => {
+    if (!item || item.type !== 'job') return item;
+    if (String(item.jobDescription || '').trim()) return item;
+    return {
+      ...item,
+      jobDescription: makeDetailedDescription(
+        String(item.title || 'Job Opportunity'),
+        String(item.company || 'Company'),
+        String(item.location || 'Not specified'),
+        String(item.excerpt || '')
+      )
+    };
+  });
+  const hadBackfillChanges = existingNormalized.some((item, idx) => item !== existing[idx]);
+
   const existingLinks = new Set(
-    existing.map(item => String(item.applyLink || '').trim().toLowerCase()).filter(Boolean)
+    existingNormalized.map(item => String(item.applyLink || '').trim().toLowerCase()).filter(Boolean)
   );
   const usedSlugs = new Set(
-    existing.map(item => String(item.slug || '').trim()).filter(Boolean)
+    existingNormalized.map(item => String(item.slug || '').trim()).filter(Boolean)
   );
-  let nextId = existing.reduce((m, item) => Math.max(m, Number(item.id) || 0), 0);
+  let nextId = existingNormalized.reduce((m, item) => Math.max(m, Number(item.id) || 0), 0);
 
   let remotive = [];
   try {
@@ -228,6 +270,7 @@ async function main() {
       postedDate: item.postedDate || new Date().toISOString().slice(0, 10),
       postedAt: item.postedAt || null,
       excerpt: item.excerpt,
+      jobDescription: item.jobDescription,
       applyLink: item.applyLink,
       qualification: 'Not specified',
       experience: 'As per role',
@@ -240,13 +283,18 @@ async function main() {
   }
 
   if (!toAdd.length) {
+    if (hadBackfillChanges) {
+      fs.writeFileSync(JOBS_FILE, `${JSON.stringify(existingNormalized, null, 2)}\n`, 'utf8');
+      console.log(`Backfilled detailed descriptions for existing jobs. Total jobs: ${existingNormalized.length}`);
+      return;
+    }
     console.log(
-      `No new jobs found. Sources fetched: remotive=${remotive.length}, arbeitnow=${arbeitnow.length}. Lookback=${LOOKBACK_HOURS}h.`
+      `No new jobs found. Sources fetched: remotive=${remotive.length}, arbeitnow=${arbeitnow.length}. Lookback=${LOOKBACK_HOURS}h. IndiaOnly=${IMPORT_ONLY_INDIA}.`
     );
     return;
   }
 
-  const merged = [...toAdd, ...existing];
+  const merged = [...toAdd, ...existingNormalized];
   if (process.env.DRY_RUN === '1') {
     console.log(`DRY_RUN: would add ${toAdd.length} jobs. Total would be ${merged.length}.`);
     return;
