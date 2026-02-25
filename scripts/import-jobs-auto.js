@@ -8,7 +8,8 @@ const __dirname = path.dirname(__filename);
 const ROOT = path.resolve(__dirname, '..');
 const JOBS_FILE = path.join(ROOT, 'data', 'jobs.json');
 const MAX_NEW_PER_RUN = 30;
-const LAST_24H_MS = 24 * 60 * 60 * 1000;
+const LOOKBACK_HOURS = Number(process.env.IMPORT_LOOKBACK_HOURS || '72');
+const LOOKBACK_MS = Math.max(1, LOOKBACK_HOURS) * 60 * 60 * 1000;
 const SOFTWARE_ROLE_REGEX = /(software|developer|engineer|programmer|frontend|front end|backend|back end|full ?stack|sde|devops|cloud|data engineer|qa|test automation|site reliability|sre|machine learning|ml engineer|ai engineer|security engineer|platform engineer|application engineer|oracle|sap|erp|it\b)/i;
 
 function slugify(text) {
@@ -60,10 +61,10 @@ function parseDateValue(value) {
   return utc;
 }
 
-function isWithinLast24Hours(dateValue) {
+function isWithinLookbackHours(dateValue) {
   const dt = parseDateValue(dateValue);
   if (!dt) return false;
-  return Date.now() - dt.getTime() <= LAST_24H_MS;
+  return Date.now() - dt.getTime() <= LOOKBACK_MS;
 }
 
 function makeExcerpt(company, title, location, description) {
@@ -120,7 +121,7 @@ async function fetchArbeitnowJobs() {
 function mapRemotiveJob(item) {
   const title = String(item && item.title ? item.title : '').trim();
   if (!title || isInternLike(title)) return null;
-  if (!isWithinLast24Hours(item && item.publication_date)) return null;
+  if (!isWithinLookbackHours(item && item.publication_date)) return null;
   if (!isSoftwareRole(title, item && item.description, item && item.category)) return null;
 
   const company = String(item && item.company_name ? item.company_name : 'Not specified').trim();
@@ -145,7 +146,7 @@ function mapRemotiveJob(item) {
 function mapArbeitnowJob(item) {
   const title = String(item && item.title ? item.title : '').trim();
   if (!title || isInternLike(title)) return null;
-  if (!isWithinLast24Hours(item && item.created_at)) return null;
+  if (!isWithinLookbackHours(item && item.created_at)) return null;
   if (!isSoftwareRole(title, item && item.description, (item && item.tags && item.tags.join(' ')) || '')) return null;
 
   const company = String(item && item.company_name ? item.company_name : 'Not specified').trim();
@@ -240,7 +241,7 @@ async function main() {
 
   if (!toAdd.length) {
     console.log(
-      `No new jobs found. Sources fetched: remotive=${remotive.length}, arbeitnow=${arbeitnow.length}.`
+      `No new jobs found. Sources fetched: remotive=${remotive.length}, arbeitnow=${arbeitnow.length}. Lookback=${LOOKBACK_HOURS}h.`
     );
     return;
   }

@@ -7,7 +7,8 @@ const __dirname = path.dirname(__filename);
 const ROOT = path.resolve(__dirname, '..');
 const INTERNSHIPS_FILE = path.join(ROOT, 'data', 'internships.json');
 const MAX_NEW_PER_RUN = 25;
-const LAST_24H_MS = 24 * 60 * 60 * 1000;
+const LOOKBACK_HOURS = Number(process.env.IMPORT_LOOKBACK_HOURS || '72');
+const LOOKBACK_MS = Math.max(1, LOOKBACK_HOURS) * 60 * 60 * 1000;
 
 function slugify(text) {
   return String(text || '')
@@ -57,10 +58,10 @@ function parseDateValue(value) {
   return utc;
 }
 
-function isWithinLast24Hours(dateValue) {
+function isWithinLookbackHours(dateValue) {
   const dt = parseDateValue(dateValue);
   if (!dt) return false;
-  return Date.now() - dt.getTime() <= LAST_24H_MS;
+  return Date.now() - dt.getTime() <= LOOKBACK_MS;
 }
 
 function uniqueSlug(baseSlug, usedSlugs) {
@@ -107,7 +108,7 @@ async function fetchArbeitnowJobs() {
 function mapRemotiveInternship(item) {
   const title = String(item && item.title ? item.title : '').trim();
   if (!title || !isInternLike(title, item && item.job_type)) return null;
-  if (!isWithinLast24Hours(item && item.publication_date)) return null;
+  if (!isWithinLookbackHours(item && item.publication_date)) return null;
 
   const company = String(item && item.company_name ? item.company_name : 'Not specified').trim();
   const location = String(item && item.candidate_required_location ? item.candidate_required_location : 'Remote').trim();
@@ -128,7 +129,7 @@ function mapArbeitnowInternship(item) {
   const title = String(item && item.title ? item.title : '').trim();
   const jobTypes = Array.isArray(item && item.job_types) ? item.job_types.join(' ') : '';
   if (!title || !isInternLike(title, jobTypes)) return null;
-  if (!isWithinLast24Hours(item && item.created_at)) return null;
+  if (!isWithinLookbackHours(item && item.created_at)) return null;
 
   const company = String(item && item.company_name ? item.company_name : 'Not specified').trim();
   const isRemote = Boolean(item && item.remote);
@@ -205,7 +206,7 @@ async function main() {
 
   if (!toAdd.length) {
     console.log(
-      `No new internships found. Sources fetched: remotive=${remotive.length}, arbeitnow=${arbeitnow.length}.`
+      `No new internships found. Sources fetched: remotive=${remotive.length}, arbeitnow=${arbeitnow.length}. Lookback=${LOOKBACK_HOURS}h.`
     );
     return;
   }

@@ -25,6 +25,7 @@ jobs:
       - name: Import hackathons (Eventbrite + Devpost fallback)
         env:
           EVENTBRITE_API_TOKEN: ${{ secrets.EVENTBRITE_API_TOKEN }}
+          IMPORT_LOOKBACK_HOURS: "72"
         run: npm run import:hackathons:eventbrite
 
       - name: Regenerate sitemap

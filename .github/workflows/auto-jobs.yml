@@ -23,6 +23,8 @@ jobs:
           node-version: "20"
 
       - name: Import jobs
+        env:
+          IMPORT_LOOKBACK_HOURS: "72"
         run: npm run import:jobs:auto
 
       - name: Regenerate sitemap

@@ -9,7 +9,8 @@ const HACKATHONS_FILE = path.join(ROOT, 'data', 'hackathons.json');
 const EVENTBRITE_API_BASE = 'https://www.eventbriteapi.com/v3/events/search/';
 const DEVPOST_API_BASE = 'https://devpost.com/api/hackathons';
 const FETCH_PAGE_SIZE = 50;
-const LAST_24H_MS = 24 * 60 * 60 * 1000;
+const LOOKBACK_HOURS = Number(process.env.IMPORT_LOOKBACK_HOURS || '72');
+const LOOKBACK_MS = Math.max(1, LOOKBACK_HOURS) * 60 * 60 * 1000;
 
 function slugify(text) {
   return String(text || '')
@@ -52,10 +53,10 @@ function parseDateValue(input) {
   return d;
 }
 
-function isWithinLast24Hours(input) {
+function isWithinLookbackHours(input) {
   const d = parseDateValue(input);
   if (!d) return false;
-  return Date.now() - d.getTime() <= LAST_24H_MS;
+  return Date.now() - d.getTime() <= LOOKBACK_MS;
 }
 
 function excerptFromDescription(value) {
@@ -209,11 +210,11 @@ async function main() {
   );
   const maxId = existing.reduce((m, item) => Math.max(m, Number(item.id) || 0), 0);
 
-  const last24hDate = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString();
+  const rangeStartDate = new Date(Date.now() - LOOKBACK_MS).toISOString();
 
   let eventbriteEvents = [];
   try {
-    eventbriteEvents = await fetchEventbrite('hackathon', last24hDate);
+    eventbriteEvents = await fetchEventbrite('hackathon', rangeStartDate);
   } catch (err) {
     console.error(`Eventbrite fetch failed: ${err instanceof Error ? err.message : String(err)}`);
   }
@@ -228,7 +229,7 @@ async function main() {
   const formatted = [
     ...eventbriteEvents.map(formatEvent),
     ...devpostEvents.map(formatDevpostEvent)
-  ].filter(item => isWithinLast24Hours(item && (item.postedAt || item.postedDate)));
+  ].filter(item => isWithinLookbackHours(item && (item.postedAt || item.postedDate)));
 
   let nextId = maxId;
   const newItems = [];
@@ -258,7 +259,7 @@ async function main() {
 
   if (!newItems.length) {
     console.log(
-      `No new hackathons found. Sources fetched: Eventbrite=${eventbriteEvents.length}, Devpost=${devpostEvents.length}.`
+      `No new hackathons found. Sources fetched: Eventbrite=${eventbriteEvents.length}, Devpost=${devpostEvents.length}. Lookback=${LOOKBACK_HOURS}h.`
     );
     return;
   }
