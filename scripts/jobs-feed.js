@@ -503,24 +503,62 @@ async function loadFeed() {
             try {
                 const homeFeed = await fetchJson(HOME_FEED_FILE);
                 if (homeFeed && !Array.isArray(homeFeed) && homeFeed.latest) {
-                    const jobsData = dedupeItems(Array.isArray(homeFeed.latest.jobs) ? homeFeed.latest.jobs : []);
-                    const internshipsData = dedupeItems(Array.isArray(homeFeed.latest.internships) ? homeFeed.latest.internships : []);
-                    const hackathonsData = dedupeItems(Array.isArray(homeFeed.latest.hackathons) ? homeFeed.latest.hackathons : []);
-                    const projectsData = dedupeItems(Array.isArray(homeFeed.latest.projects) ? homeFeed.latest.projects : []);
-
-                    categoryCounts = {
-                        jobs: Number(homeFeed.counts && homeFeed.counts.jobs) || jobsData.length,
-                        internships: Number(homeFeed.counts && homeFeed.counts.internships) || internshipsData.length,
-                        hackathons: Number(homeFeed.counts && homeFeed.counts.hackathons) || hackathonsData.length,
-                        projects: Number(homeFeed.counts && homeFeed.counts.projects) || projectsData.length
+                    const categories = ['jobs', 'internships', 'hackathons', 'projects'];
+                    const latestFromFeed = {
+                        jobs: dedupeItems(Array.isArray(homeFeed.latest.jobs) ? homeFeed.latest.jobs : []),
+                        internships: dedupeItems(Array.isArray(homeFeed.latest.internships) ? homeFeed.latest.internships : []),
+                        hackathons: dedupeItems(Array.isArray(homeFeed.latest.hackathons) ? homeFeed.latest.hackathons : []),
+                        projects: dedupeItems(Array.isArray(homeFeed.latest.projects) ? homeFeed.latest.projects : [])
                     };
 
-                    items = [
-                        ...jobsData,
-                        ...internshipsData,
-                        ...hackathonsData,
-                        ...projectsData
-                    ];
+                    const countsFromFeed = {
+                        jobs: Number(homeFeed.counts && homeFeed.counts.jobs),
+                        internships: Number(homeFeed.counts && homeFeed.counts.internships),
+                        hackathons: Number(homeFeed.counts && homeFeed.counts.hackathons),
+                        projects: Number(homeFeed.counts && homeFeed.counts.projects)
+                    };
+
+                    const needsBackupData = categories.some((key) => {
+                        const countVal = countsFromFeed[key];
+                        return !Number.isFinite(countVal) || countVal <= 0 || latestFromFeed[key].length === 0;
+                    });
+
+                    let backupByCategory = {
+                        jobs: [],
+                        internships: [],
+                        hackathons: [],
+                        projects: []
+                    };
+
+                    if (needsBackupData) {
+                        const backupResults = await Promise.allSettled([
+                            fetchJson(DATA_FILES.jobs),
+                            fetchJson(DATA_FILES.internships),
+                            fetchJson(DATA_FILES.hackathons),
+                            fetchJson(DATA_FILES.projects)
+                        ]);
+
+                        backupByCategory = {
+                            jobs: dedupeItems(backupResults[0].status === 'fulfilled' && Array.isArray(backupResults[0].value) ? backupResults[0].value : []),
+                            internships: dedupeItems(backupResults[1].status === 'fulfilled' && Array.isArray(backupResults[1].value) ? backupResults[1].value : []),
+                            hackathons: dedupeItems(backupResults[2].status === 'fulfilled' && Array.isArray(backupResults[2].value) ? backupResults[2].value : []),
+                            projects: dedupeItems(backupResults[3].status === 'fulfilled' && Array.isArray(backupResults[3].value) ? backupResults[3].value : [])
+                        };
+                    }
+
+                    const jobsData = latestFromFeed.jobs.length ? latestFromFeed.jobs : sortByPostedDateDesc(backupByCategory.jobs).slice(0, HOME_SECTION_LIMIT);
+                    const internshipsData = latestFromFeed.internships.length ? latestFromFeed.internships : sortByPostedDateDesc(backupByCategory.internships).slice(0, HOME_SECTION_LIMIT);
+                    const hackathonsData = latestFromFeed.hackathons.length ? latestFromFeed.hackathons : sortByPostedDateDesc(backupByCategory.hackathons).slice(0, HOME_SECTION_LIMIT);
+                    const projectsData = latestFromFeed.projects.length ? latestFromFeed.projects : sortByPostedDateDesc(backupByCategory.projects).slice(0, HOME_SECTION_LIMIT);
+
+                    categoryCounts = {
+                        jobs: Number.isFinite(countsFromFeed.jobs) && countsFromFeed.jobs > 0 ? countsFromFeed.jobs : backupByCategory.jobs.length || jobsData.length,
+                        internships: Number.isFinite(countsFromFeed.internships) && countsFromFeed.internships > 0 ? countsFromFeed.internships : backupByCategory.internships.length || internshipsData.length,
+                        hackathons: Number.isFinite(countsFromFeed.hackathons) && countsFromFeed.hackathons > 0 ? countsFromFeed.hackathons : backupByCategory.hackathons.length || hackathonsData.length,
+                        projects: Number.isFinite(countsFromFeed.projects) && countsFromFeed.projects > 0 ? countsFromFeed.projects : backupByCategory.projects.length || projectsData.length
+                    };
+
+                    items = [...jobsData, ...internshipsData, ...hackathonsData, ...projectsData];
                 } else {
                     throw new Error('Invalid home-feed payload');
                 }
