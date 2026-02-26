@@ -1,13 +1,45 @@
 {
   "updatedAt": "2026-02-25T10:57:57.000Z",
   "counts": {
-    "jobs": 92,
+    "jobs": 94,
     "internships": 13,
     "hackathons": 12,
     "projects": 1257
   },
   "latest": {
     "jobs": [
+      {
+        "id": 101,
+        "title": "Volvo Hiring Graduate Apprentice Trainee",
+        "company": "Volvo Group",
+        "slug": "volvo-hiring-graduate-apprentice-trainee-101",
+        "type": "job",
+        "location": "Hosakote, India",
+        "postedDate": "2026-02-26",
+        "postedAt": "2026-02-26T11:00:00Z",
+        "excerpt": "Volvo Group is hiring Graduate Apprentice Trainee in Hosakote. Apply through the official Volvo careers portal.",
+        "experience": "Freshers / Apprentice",
+        "domain": "",
+        "duration": "",
+        "difficulty": "",
+        "teamSize": ""
+      },
+      {
+        "id": 100,
+        "title": "HLL Management Trainees Recruitment 2026",
+        "company": "HLL Lifecare Limited",
+        "slug": "hll-management-trainees-recruitment-2026-100",
+        "type": "job",
+        "location": "India",
+        "postedDate": "2026-02-26",
+        "postedAt": "2026-02-26T10:59:00Z",
+        "excerpt": "HLL Lifecare Limited is recruiting 40 Management Trainees. Salary: Rs. 40,000 to Rs. 1,40,000. Last date: 10 March 2026.",
+        "experience": "As per notification",
+        "domain": "",
+        "duration": "",
+        "difficulty": "",
+        "teamSize": ""
+      },
       {
         "id": 99,
         "title": "BSNL Senior Executive Trainee (SET) Recruitment 2026",
