@@ -82,6 +82,24 @@
         el.setAttribute('content', content);
     }
 
+    function setRobots(content) {
+        let el = document.querySelector('meta[name="robots"]');
+        if (!el) {
+            el = document.createElement('meta');
+            el.setAttribute('name', 'robots');
+            document.head.appendChild(el);
+        }
+        el.setAttribute('content', content);
+
+        let googlebot = document.querySelector('meta[name="googlebot"]');
+        if (!googlebot) {
+            googlebot = document.createElement('meta');
+            googlebot.setAttribute('name', 'googlebot');
+            document.head.appendChild(googlebot);
+        }
+        googlebot.setAttribute('content', content);
+    }
+
     function listHtml(items, fallback) {
         const list = Array.isArray(items) ? items.filter(Boolean) : [];
         if (!list.length) return `<li>${escapeHtml(fallback)}</li>`;
@@ -466,6 +484,16 @@
     }
 
     async function render() {
+        const params = getQueryParams();
+        const rawSlug = String(params.get('slug') || '').trim();
+        const rawCategory = String(params.get('category') || '').trim();
+        if (!rawSlug || !DATA_FILES[rawCategory]) {
+            setRobots('noindex, nofollow');
+            document.title = 'Opportunity Not Found | StudentTechProjects';
+            document.getElementById('content-root').innerHTML = '<p class="text-center text-red-600">Content not found for this page.</p>';
+            return;
+        }
+
         const slug = fileSlugFromPath();
         const category = categoryFromPath();
         const pageData = await fetchJson(DATA_FILES[category]);
@@ -473,6 +501,8 @@
         const base = list.find(item => item.slug === slug);
 
         if (!base) {
+            setRobots('noindex, nofollow');
+            document.title = 'Opportunity Not Found | StudentTechProjects';
             document.getElementById('content-root').innerHTML = '<p class="text-center text-red-600">Content not found for this page.</p>';
             return;
         }
@@ -495,6 +525,7 @@
         setMeta('twitter:title', data.title || 'Opportunity');
         setMeta('twitter:description', description);
         setMeta('twitter:image', imageAbsolute);
+        setRobots('index, follow, max-image-preview:large');
 
         const canonicalEl = document.getElementById('canonical-link');
         if (canonicalEl) canonicalEl.href = canonical;
@@ -942,6 +973,7 @@ ${category === 'projects' ? `
     document.addEventListener('DOMContentLoaded', function () {
         render().catch(function (err) {
             console.warn('Content render fallback:', err && err.message ? err.message : err);
+            setRobots('noindex, nofollow');
             const root = document.getElementById('content-root');
             if (root) root.innerHTML = '<p class="text-center text-red-600">Failed to load content. Please try again.</p>';
         });
