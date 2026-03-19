@@ -424,12 +424,26 @@ async function displayItems(items, currentPage) {
             renderSection('jobs-feed-internships', internships.slice(0, HOME_SECTION_LIMIT), currentPage, latestJobDate),
             renderSection('jobs-feed-hackathons', hackathons.slice(0, HOME_SECTION_LIMIT), currentPage, latestJobDate)
         ]);
+        
+        // Refresh Ezoic ads on home page dynamic load
+        if (typeof ezstandalone !== 'undefined') {
+            ezstandalone.cmd.push(function () {
+                ezstandalone.showAds();
+            });
+        }
         return;
     }
 
     const expectedType = PAGE_TO_TYPE[currentPage];
     const list = sortByPostedDateDesc(items.filter(item => item.type === expectedType));
     await renderSection('jobs-feed', list, currentPage, null);
+
+    // Refresh Ezoic ads after dynamic content update
+    if (typeof ezstandalone !== 'undefined') {
+        ezstandalone.cmd.push(function () {
+            ezstandalone.showAds();
+        });
+    }
 }
 
 function fallbackItems(currentPage) {
